@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PassageController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('guest')->group(function () {
+    Route::controller(WelcomeController::class)->group(function () {
+        Route::get('/', 'welcome')->name('welcome');
+        Route::post('/writing/store', 'store')->name('writing.store');
+    });
     Route::controller(AuthController::class)->group(function () {
-        Route::get('/', 'create')->name('login');
+        Route::get('/login', 'create')->name('login');
         Route::post('/login', 'store')->name('login.store');
     });
 });
