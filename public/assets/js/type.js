@@ -1,11 +1,10 @@
 $(document).ready(function () {
-    let timerInterval; // Timer variable
-    let timeLimit; // Time limit in seconds
-    let totalTypedWords = 0; // Count of total typed words
-    let correctWords = 0; // Count of correct words
-    let wrongWords = 0; // Count of wrong words
+    let timerInterval;
+    let timeLimit;
+    let totalTypedWords = 0;
+    let correctWords    = 0;
+    let wrongWords      = 0;
 
-    // Handle form submission
     $('#typing-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -78,8 +77,8 @@ $(document).ready(function () {
 
             if (timeRemaining <= 0) {
                 clearInterval(timerInterval);
-                calculateStats(); // Calculate stats when time is up
-                $('#typing-form').submit(); // Automatically submit form
+                calculateStats();
+                $('#typing-form').submit();
             }
         }, 1000);
     }

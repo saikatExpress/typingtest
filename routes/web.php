@@ -21,7 +21,9 @@ Route::middleware('guest')->group(function () {
     Route::controller(WelcomeController::class)->group(function () {
         Route::get('/', 'welcome')->name('welcome');
         Route::post('/writing/store', 'store')->name('writing.store');
+        Route::post('/get-passage', 'getPassage')->name('get.passage');
     });
+
     Route::controller(AuthController::class)->group(function () {
         Route::get('/login', 'create')->name('login');
         Route::post('/login', 'store')->name('login.store');

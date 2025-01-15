@@ -60,4 +60,35 @@ class WelcomeController extends Controller
             'code' => 200
         ]);
     }
+
+    public function getPassage(Request $request)
+    {
+        $request->validate([
+            'category' => 'required|string',
+            'total_word' => 'required|integer',
+        ]);
+
+        $category = $request->input('category');
+        $totalWord = $request->input('total_word');
+
+        $passage = Passage::where('language_type', $category)
+            ->where('total_word', $totalWord)
+            ->inRandomOrder()
+            ->first();
+
+        if (!$passage) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No passages found for the selected category.',
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => [
+                'passage' => $passage->pluck('passage')->join(' '),
+                'time' => ceil($totalWord / 200),
+            ],
+        ]);
+    }
 }

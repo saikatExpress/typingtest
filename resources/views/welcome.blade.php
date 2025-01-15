@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Typing Test</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/text.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -82,12 +83,12 @@
 
                     <tr>
                       <td class="w-1/3 text-sm px-2 group font-medium text-gray-700 border border-black">
-                          <label for="name"  class="text-black md:text-[14px] text-[12px]duration-300 ease-in-out">
+                          <label for="std_id"  class="text-black md:text-[14px] text-[12px]duration-300 ease-in-out">
                             Your ID
                         </label>
                       </td>
                       <td class="w-2/3 border text-black border-black">
-                        <input type="number" id="name" name="std_id" class="p-2 h-full w-full text-black" placeholder="Enter your Id" required>
+                        <input type="number" id="std_id" name="std_id" class="p-2 h-full w-full text-black" placeholder="Enter your Id" required>
                       </td>
                   </tr>
                   <tr>
@@ -97,7 +98,7 @@
                         </label>
                     </td>
                     <td class="w-2/3 border border-black">
-                        <select id="passage" name="type" class="p-2 h-full w-full text-black" required>
+                        <select id="category" name="type" class="p-2 h-full w-full text-black" required>
                             <option value="english">English</option>
                             <option value="bangla">Bangla</option>
                         </select>
@@ -129,7 +130,7 @@
                             </label>
                         </td>
                         <td class="w-2/3 border border-black">
-                            <select id="passage" name="total_word" class="p-2 h-full w-full text-black" required>
+                            <select id="total_word" name="total_word" class="p-2 h-full w-full text-black" required>
                                 <option value="">--select passage--</option>
                                 <option value="200">200 word Passage </option>
                                 <option value="300">300 word Passage </option>
@@ -140,7 +141,7 @@
 
                     <tr>
                         <td colspan="2" class="border border-black">
-                            <button type="submit" class="w-full bg-[#158EBD] text-[14px] text-[12px]  hover:bg-[#02668D] text-white p-2  transition duration-300">
+                            <button type="submit" class="w-full bg-[#158EBD] text-[14px] text-[12px]  hover:bg-[#02668D] text-white p-2  transition duration-300" id="start_typing">
                                Start Typing
                             </button>
                         </td>
@@ -151,7 +152,6 @@
          </div>
      </div>
      <!-- main typing design end -->
-
 
 
        <!-- secound page start -->
@@ -186,11 +186,10 @@
             <p id="textPassage">
 
             </p>
-            <input type="hidden" id="typeTime" value="">
+            <input type="text" id="typeTime" value="">
             <div id="typing-results"></div>
           </div>
           <div id="response-message"></div>
-            <div id="stats"></div>
           <!-- Input Field -->
           <div class="mt-4">
             <input type="text" id="type_here" placeholder="Type here..." class="w-full h-[50px] border border-gray-300  px-4 py-2 focus:outline-none  focus:border-black"/>
@@ -249,6 +248,6 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ asset('assets/js/type.js') }}"></script>
+    <script src="{{ asset('assets/js/test.js') }}"></script>
 </body>
 </html>
