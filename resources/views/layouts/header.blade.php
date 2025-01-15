@@ -175,15 +175,15 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6>{{ auth()->user()->name }}</h6>
+              <span style="text-transform: uppercase;">{{ auth()->user()->role }}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.show') }}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>

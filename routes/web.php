@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PassageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -18,21 +19,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('guest')->group(function () {
-    Route::controller(WelcomeController::class)->group(function () {
-        Route::get('/', 'welcome')->name('welcome');
-        Route::post('/writing/store', 'store')->name('writing.store');
-        Route::post('/get-passage', 'getPassage')->name('get.passage');
-        Route::post('/typing-results', 'calculateResult')->name('calculate.result');
-    });
+Route::controller(WelcomeController::class)->group(function () {
+    Route::get('/', 'welcome')->name('welcome');
+    Route::post('/writing/store', 'store')->name('writing.store');
+    Route::post('/get-passage', 'getPassage')->name('get.passage');
+    Route::post('/typing-results', 'calculateResult')->name('calculate.result');
+});
 
+Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('/login', 'create')->name('login');
         Route::post('/login', 'store')->name('login.store');
     });
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/home', 'index')->name('dashboard');
     });
@@ -42,6 +43,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/list', 'index')->name('list');
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update', 'update')->name('update');
+        });
+    });
+
+    Route::prefix('admin')->name('profile.')->group(function(){
+        Route::controller(ProfileController::class)->group(function(){
+            Route::get('/profile', 'show')->name('show');
+            Route::get('/edit', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
         });
     });
 
