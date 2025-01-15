@@ -155,7 +155,7 @@
 
 
        <!-- secound page start -->
-    <div class="min-h-screen flex items-center px-4 mt-[50px] justify-center" id="passage_box">
+    <div class="min-h-screen flex items-center px-4 mt-[50px] justify-center" id="passage_box" style="display: none;">
 
         <div class="bg-gradient-to-r rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] shadow-md  p-6 max-w-[1100px] w-full">
           <!-- Header Table -->
@@ -186,7 +186,7 @@
             <p id="textPassage">
 
             </p>
-            <input type="text" id="typeTime" value="">
+            <input type="hidden" id="typeTime" value="">
             <div id="typing-results"></div>
           </div>
           <div id="response-message"></div>
@@ -197,7 +197,7 @@
         </div>
     </div>
 
-    <div class="px-4" id="result_box">
+    <div class="px-4" id="result_box" style="display: none;">
         <div class="bg-[#4ACBEB] shadow-md rounded-md max-w-[1100px] mt-[30px]  mx-auto flex items-center justify-center py-10">
             <div class="bg-[#158EBD] px-4 w-[1000px] border border-gray-700 shadow-lg  p-6">
             <table class="table-auto border-collapse w-full bg-[#52CFED] text-left text-sm border border-gray-600">

@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    clearAllFeilds();
+
     let timerInterval;
     let timeLimit;
 
@@ -16,15 +19,17 @@ $(document).ready(function () {
     function handleStartTyping(e) {
         e.preventDefault();
 
-        const category = $('#category').val();
+        const category  = $('#category').val();
         const totalWord = $('#total_word').val();
+        const stdId     = $('#std_id').val();
+        const name      = $('#name').val();
 
-        if (!category || !totalWord) {
+        if (!category || !totalWord || !name || !stdId) {
             displayMessage('Please fill all fields.', 'error');
             return;
         }
 
-        getPassage(category, totalWord);
+        getPassage(category, totalWord, name, stdId);
     }
 
     // Handle typing input focus to start the timer
@@ -39,6 +44,10 @@ $(document).ready(function () {
     function handleTypingInput() {
         const typedText = $(this).val();
         const passageText = $('#textPassage').text();
+
+        $('#textPassage').hide();
+        $('#typing-results').show();
+
         const comparison = compareText(typedText, passageText);
         $('#typing-results').html(comparison.highlightedText);
     }
@@ -121,7 +130,6 @@ $(document).ready(function () {
             data: data,
             success: function (response) {
                 if(response && response.status === true){
-
                     let skippedWords = response.data.skipped_words;
                     let wordCount = calculateWordCount(skippedWords);
                     Swal.fire({
@@ -137,6 +145,8 @@ $(document).ready(function () {
                         $('#double_words').text(response.data.double_words);
                         $('#skipped_words').text(wordCount);
                         displayMessage('Results saved successfully!', 'success');
+                        $('#result_box').show();
+                        $('#type_here').prop('disabled', true);
                         $('html, body').animate({
                             scrollTop: $('#result_box').offset().top
                         }, 1000);
@@ -148,16 +158,16 @@ $(document).ready(function () {
             },
         });
     }
-
     function calculateWordCount(words) {
-        // Split the string by commas, filter out empty items, and count the length
         const wordArray = words.split(',').filter(word => word.trim() !== '');
         return wordArray.length;
     }
 
     // Fetch passage dynamically
-    function getPassage(category, totalWord) {
+    function getPassage(category, totalWord, name,stdId) {
         const formData = {
+            name: name,
+            stdId: stdId,
             category: category,
             total_word: totalWord,
             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -172,6 +182,7 @@ $(document).ready(function () {
                     $('#textPassage').html(response.data.passage);
                     $('#typeTime').val(response.data.time);
                     displayMessage('Passage loaded successfully!', 'success');
+                    $('#passage_box').show();
                     $('html, body').animate({
                         scrollTop: $('#passage_box').offset().top
                     }, 1000);
@@ -189,5 +200,19 @@ $(document).ready(function () {
     function displayMessage(message, type) {
         const color = type === 'success' ? 'text-green-600' : 'text-red-600';
         $('#response-message').html(`<p class="${color}">${message}</p>`);
+    }
+
+    /**
+     * Clear all form fields: input, select, textarea, checkbox, radio
+     */
+    function clearAllFeilds()
+    {
+        $('input').val('');
+
+        $('select').val('');
+
+        $('textarea').val('');
+
+        $('input[type="checkbox"], input[type="radio"]').prop('checked', false);
     }
 });

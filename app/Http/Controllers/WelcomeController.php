@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Passage;
 use App\Models\TypeResult;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -141,14 +143,51 @@ class WelcomeController extends Controller
         }
     }
 
+
+    /**
+     * @api {get} /get-passage Get a random passage for given category and total word count
+     * @apiName GetPassage
+     * @apiGroup Passage
+     * @apiParam {String} name Student name
+     * @apiParam {String} stdId Student ID
+     * @apiParam {String} category Passage category
+     * @apiParam {Integer} total_word Total words in passage
+     * @apiSuccess {Boolean} status Status of the response
+     * @apiSuccess {String} passage Passage text
+     * @apiSuccess {Integer} time Time in seconds
+     * @apiError {String} message No passages found for the selected category
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "status": false,
+     *       "message": "No passages found for the selected category."
+     *     }
+    */
     public function getPassage(Request $request)
     {
         $request->validate([
+            'name'       => 'required|string',
+            'stdId'      => 'required',
             'category'   => 'required|string',
             'total_word' => 'required|integer',
         ]);
 
-        $category = $request->input('category');
+        $user = User::where('std_id', $request->input('stdId'))->first();
+
+        if(!$user){
+            $userObj = new User();
+
+            $userObj->name     = $request->input('name');
+            $userObj->email    = $request->input('name').'@gmail.com';
+            $userObj->std_id   = $request->input('stdId');
+            $userObj->password = Hash::make('123456');
+            $userObj->role     = 'user';
+            $userObj->status   = 'active';
+
+            $userObj->save();
+        }
+
+        $category  = $request->input('category');
         $totalWord = $request->input('total_word');
 
         $passage = Passage::where('language_type', $category)
