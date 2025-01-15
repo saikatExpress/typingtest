@@ -155,7 +155,7 @@
 
 
        <!-- secound page start -->
-    <div class="min-h-screen flex items-center px-4 mt-[50px] justify-center">
+    <div class="min-h-screen flex items-center px-4 mt-[50px] justify-center" id="passage_box">
 
         <div class="bg-gradient-to-r rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] shadow-md  p-6 max-w-[1100px] w-full">
           <!-- Header Table -->
@@ -197,34 +197,34 @@
         </div>
     </div>
 
-    <div class="px-4">
+    <div class="px-4" id="result_box">
         <div class="bg-[#4ACBEB] shadow-md rounded-md max-w-[1100px] mt-[30px]  mx-auto flex items-center justify-center py-10">
             <div class="bg-[#158EBD] px-4 w-[1000px] border border-gray-700 shadow-lg  p-6">
             <table class="table-auto border-collapse w-full bg-[#52CFED] text-left text-sm border border-gray-600">
                 <tbody>
                 <tr>
                     <td class="py-2 px-4 border border-gray-700 font-semibold">Name</td>
-                    <td class="py-2 px-4 border border-gray-700 w-1/2">asif</td>
+                    <td class="py-2 px-4 border border-gray-700 w-1/2" id="std_name"></td>
                 </tr>
                 <tr>
                     <td class="py-2 px-4 border border-gray-700 font-semibold">Gross Word Per Minute</td>
-                    <td class="py-2 px-4 border border-gray-700">1.00</td>
+                    <td class="py-2 px-4 border border-gray-700" id="gwpm"></td>
                 </tr>
                 <tr>
                     <td class="py-2 px-4 border border-gray-700 font-semibold">Net Word Per Minute</td>
-                    <td class="py-2 px-4 border border-gray-700">0.00</td>
+                    <td class="py-2 px-4 border border-gray-700" id="net_wpm"></td>
                 </tr>
                 <tr>
                     <td class="py-2 px-4 border border-gray-700 font-semibold">Accuracy</td>
-                    <td class="py-2 px-4 border border-gray-700">0.00 %</td>
+                    <td class="py-2 px-4 border border-gray-700" id="accuracy"></td>
                 </tr>
                 <tr>
                     <td class="py-2 px-4 border border-gray-700 font-semibold">Double [Word][Count]</td>
-                    <td class="py-2 px-4 border border-gray-700">0</td>
+                    <td class="py-2 px-4 border border-gray-700" id="double_words"></td>
                 </tr>
                 <tr>
                     <td class="py-2 px-4 border border-gray-700 font-semibold">Skipped</td>
-                    <td class="py-2 px-4 border border-gray-700">0</td>
+                    <td class="py-2 px-4 border border-gray-700" id="skipped_words"></td>
                 </tr>
                 <tr>
                     <td class="py-2 px-4 border border-gray-700 font-semibold">Wrong Word Typed</td>
@@ -248,6 +248,7 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ asset('assets/js/test.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/js/type.js') }}"></script>
 </body>
 </html>

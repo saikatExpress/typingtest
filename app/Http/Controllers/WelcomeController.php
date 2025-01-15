@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Passage;
+use App\Models\TypeResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -61,10 +62,89 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function calculateResult(Request $request)
+    {
+        $stdId       = $request->input('std_id');
+        $name        = $request->input('name', 'Unknown');
+        $typedText   = $request->input('typed_text');
+        $passageText = $request->input('passage');
+        $category = $request->input('category');
+        $timeLimit   = $request->input('time_count', 1) * 60;
+
+        $typedWords = array_filter(explode(' ', $typedText));
+        $passageWords = array_filter(explode(' ', $passageText));
+
+        $totalTypedWords = count($typedWords);
+        $totalPassageWords = count($passageWords);
+
+        $correctWords = 0;
+        $wrongWords = [];
+        $doubleWords = [];
+        $skippedWords = [];
+
+        // Compare words
+        foreach ($passageWords as $index => $word) {
+            if (isset($typedWords[$index])) {
+                if ($typedWords[$index] === $word) {
+                    $correctWords++;
+                } else {
+                    $wrongWords[] = $typedWords[$index];
+                }
+            } else {
+                $skippedWords[] = $word;
+            }
+        }
+
+        // Check for duplicates in typed words
+        $typedWordCounts = array_count_values($typedWords);
+        foreach ($typedWordCounts as $word => $count) {
+            if ($count > 1) {
+                $doubleWords[$word] = $count;
+            }
+        }
+
+        $grossWPM = $totalTypedWords / ($timeLimit / 60);
+        $netWPM   = $correctWords / ($timeLimit / 60);
+        $accuracy = $totalTypedWords > 0 ? ($correctWords / $totalTypedWords) * 100 : 0;
+
+        $data = [
+            'name'          => $name,
+            'gross_wpm'     => number_format($grossWPM, 2),
+            'net_wpm'       => number_format($netWPM, 2),
+            'accuracy'      => number_format($accuracy, 2) . '%',
+            'double_words'  => $doubleWords,
+            'skipped_words' => $skippedWords,
+            'wrong_words'   => $wrongWords,
+        ];
+
+        $typeResultObj = new TypeResult();
+
+        $typeResultObj->name            = $data['name'];
+        $typeResultObj->std_id          = $stdId;
+        $typeResultObj->gross_wpm       = $data['gross_wpm'];
+        $typeResultObj->net_wpm         = $data['net_wpm'];
+        $typeResultObj->accuracy        = $data['accuracy'];
+        $typeResultObj->double_words    = is_array($data['double_words']) ? implode(',', $data['double_words']) : $data['double_words'];
+        $typeResultObj->skipped_words   = is_array($data['skipped_words']) ? implode(',', $data['skipped_words']) : $data['skipped_words'];
+        $typeResultObj->wrong_words     = is_array($data['wrong_words']) ? implode(',', $data['wrong_words']) : $data['wrong_words'];
+        $typeResultObj->typing_category = $category;
+        $typeResultObj->duration        = $timeLimit;
+
+
+        $res = $typeResultObj->save();
+
+        if($res){
+            return response()->json([
+                'status' => true,
+                'data'   => $typeResultObj
+            ]);
+        }
+    }
+
     public function getPassage(Request $request)
     {
         $request->validate([
-            'category' => 'required|string',
+            'category'   => 'required|string',
             'total_word' => 'required|integer',
         ]);
 
@@ -86,7 +166,7 @@ class WelcomeController extends Controller
         return response()->json([
             'status' => true,
             'data' => [
-                'passage' => $passage->pluck('passage')->join(' '),
+                'passage' => $passage->passage,
                 'time' => ceil($totalWord / 200),
             ],
         ]);

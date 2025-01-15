@@ -22,6 +22,7 @@ Route::middleware('guest')->group(function () {
         Route::get('/', 'welcome')->name('welcome');
         Route::post('/writing/store', 'store')->name('writing.store');
         Route::post('/get-passage', 'getPassage')->name('get.passage');
+        Route::post('/typing-results', 'calculateResult')->name('calculate.result');
     });
 
     Route::controller(AuthController::class)->group(function () {
