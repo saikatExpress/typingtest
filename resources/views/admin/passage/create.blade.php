@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-5">
         <div class="card shadow-lg p-4 rounded">
-            <h2 class="text-center text-primary mb-4">Create Passage</h2>
+            <h2 class="text-left text-primary mb-4">Create Passage</h2>
 
             @if(session('message'))
                 <div class="alert alert-success" id="success-message">
@@ -16,6 +16,12 @@
                     {{ session('failed') }}
                 </div>
             @endif
+
+            <h2 class="text-primary mb-4" style="text-align: right;">
+                <a href="{{ route('passage.list') }}" class="btn btn-sm btn-success mb-2">
+                    All Passage
+                </a>
+            </h2>
 
             <form action="{{ route('passage.store') }}" method="post">
                 @csrf
@@ -58,7 +64,7 @@
 
                 <!-- Submit Button -->
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg px-5 mt-4 shadow-sm">Save Passage</button>
+                    <button type="submit" class="btn btn-sm btn-primary btn-lg px-5 mt-4 shadow-sm">Save Passage</button>
                 </div>
             </form>
         </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PassageController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,14 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/home', 'index')->name('dashboard');
+    });
+
+    Route::prefix('user')->name('user.')->group(function(){
+        Route::controller(UserController::class)->group(function(){
+            Route::get('/list', 'index')->name('list');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update', 'update')->name('update');
+        });
     });
 
     Route::controller(PassageController::class)->group(function () {

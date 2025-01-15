@@ -1,4 +1,3 @@
-<!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -25,7 +24,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('passage.list') }}">
+        <a class="nav-link collapsed" href="{{ route('user.list') }}">
           <i class="bi bi-question-circle"></i>
           <span>All Users</span>
         </a>
@@ -33,4 +32,3 @@
     </ul>
 
   </aside>
-  <!-- ======= Sidebar ======= -->

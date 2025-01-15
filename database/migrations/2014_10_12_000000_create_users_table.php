@@ -15,24 +15,71 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 250);
+            $table->unsignedBigInteger('std_id')->unique()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('role', ['admin', 'user']);
+            $table->string('password', 250);
+            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->timestamps();
         });
 
-        User::insert([
-            'id' => 1000,
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'admin',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $users = [
+            [
+                'name'       => 'Admin User',
+                'std_id'     => '56546',
+                'email'      => 'admin@gmail.com',
+                'password'   => Hash::make('123456'),
+                'role'       => 'admin',
+                'status'     => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name'       => 'John Doe',
+                'std_id'     => '565466',
+                'email'      => 'johndoe@gmail.com',
+                'password'   => Hash::make('123456'),
+                'role'       => 'user',
+                'status'     => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name'       => 'Jane Smith',
+                'std_id'     => '676775',
+                'email'      => 'janesmith@gmail.com',
+                'password'   => Hash::make('123456'),
+                'role'       => 'user',
+                'status'     => 'inactive',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name'       => 'Michael Brown',
+                'std_id'     => '67676',
+                'email'      => 'michaelbrown@gmail.com',
+                'password'   => Hash::make('123456'),
+                'role'       => 'user',
+                'status'     => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name'       => 'Sarah Williams',
+                'std_id'     => '676768756',
+                'email'      => 'sarahwilliams@gmail.com',
+                'password'   => Hash::make('123456'),
+                'role'       => 'user',
+                'status'     => 'inactive',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        ];
+
+        User::insert($users);
     }
 
     /**

@@ -63,14 +63,15 @@ class PassageController extends Controller
 
         $passageObj = new Passage();
 
-        $passageObj->title      = 'This is title';
-        $passageObj->total_word = $totalWord;
-        $passageObj->passage    = $passage;
+        $passageObj->title         = 'This is title';
+        $passageObj->total_word    = $totalWord;
+        $passageObj->passage       = $passage;
+        $passageObj->language_type = $type;
 
         $res = $passageObj->save();
 
         if ($res) {
-            return redirect()->back()->with('message', 'Passage create successfully');
+            return redirect()->route('passage.list')->with('message', 'Passage create successfully');
         }
     }
 

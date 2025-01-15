@@ -6,7 +6,7 @@
 
 <div class="container mt-5">
     <div class="card shadow-lg p-4 rounded">
-        <h2 class="text-left text-primary mb-4">All Passage</h2>
+        <h2 class="text-left text-primary mb-4">All User</h2>
 
         @if(session('message'))
             <div class="alert alert-success" id="success-message">
@@ -20,19 +20,13 @@
             </div>
         @endif
 
-        <h2 class="text-primary mb-4" style="text-align: right;">
-            <a href="{{ route('passage.create') }}" class="btn btn-sm btn-success mb-2">
-                Create Passage
-            </a>
-        </h2>
-
         <table class="table table-hover" id="data-table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Title</th>
-                    <th>Total Word</th>
-                    <th>Passage</th>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>Email</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -86,7 +80,7 @@
                         pagingType: "full_numbers",
                         dom: "<'row justify-content-between table-topbar'<'col-md-2 col-sm-4 px-0'l><'col-md-2 col-sm-4 px-0'f>>tipr",
                         ajax: {
-                            url: "{{ route('passage.list') }}",
+                            url: "{{ route('user.list') }}",
                             type: "get",
                         },
 
@@ -97,20 +91,20 @@
                                 searchable: false
                             },
                             {
-                                data: 'title',
-                                name: 'title',
+                                data: 'name',
+                                name: 'name',
                                 orderable: false,
                                 searchable: false
                             },
                             {
-                                data: 'total_word',
-                                name: 'total_word',
+                                data: 'std_id',
+                                name: 'std_id',
                                 orderable: false,
                                 searchable: false
                             },
                             {
-                                data: 'passage',
-                                name: 'passage',
+                                data: 'email',
+                                name: 'email',
                                 orderable: false,
                                 searchable: false
                             },
