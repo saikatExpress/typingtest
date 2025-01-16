@@ -186,7 +186,7 @@
             <p id="textPassage">
 
             </p>
-            <input type="hidden" id="typeTime" value="">
+            <input type="text" id="typeTime" value="">
             <div id="typing-results"></div>
           </div>
           <div id="response-message"></div>

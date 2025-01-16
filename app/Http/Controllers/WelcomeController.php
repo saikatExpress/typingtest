@@ -64,19 +64,24 @@ class WelcomeController extends Controller
         ]);
     }
 
+    public function test()
+    {
+        return 1100;
+    }
+
     public function calculateResult(Request $request)
     {
         $stdId       = $request->input('std_id');
         $name        = $request->input('name', 'Unknown');
         $typedText   = $request->input('typed_text');
         $passageText = $request->input('passage');
-        $category = $request->input('category');
+        $category    = $request->input('category');
         $timeLimit   = $request->input('time_count', 1) * 60;
 
-        $typedWords = array_filter(explode(' ', $typedText));
+        $typedWords   = array_filter(explode(' ', $typedText));
         $passageWords = array_filter(explode(' ', $passageText));
 
-        $totalTypedWords = count($typedWords);
+        $totalTypedWords   = count($typedWords);
         $totalPassageWords = count($passageWords);
 
         $correctWords = 0;

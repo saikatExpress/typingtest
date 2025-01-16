@@ -180,7 +180,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status === true) {
                     $('#textPassage').html(response.data.passage);
-                    $('#typeTime').val(response.data.time);
+                    $('#typeTime').val($('#passage').val());
                     displayMessage('Passage loaded successfully!', 'success');
                     $('#passage_box').show();
                     $('html, body').animate({
