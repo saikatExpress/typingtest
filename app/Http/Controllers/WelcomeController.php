@@ -66,7 +66,7 @@ class WelcomeController extends Controller
 
     public function test()
     {
-        return 1100;
+        return 1100000;
     }
 
     public function calculateResult(Request $request)
