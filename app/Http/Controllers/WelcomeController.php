@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Passage;
 use App\Models\TypeResult;
-use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -140,7 +141,7 @@ class WelcomeController extends Controller
 
         $res = $typeResultObj->save();
 
-        if($res){
+        if ($res) {
             return response()->json([
                 'status' => true,
                 'data'   => $typeResultObj
@@ -167,7 +168,7 @@ class WelcomeController extends Controller
      *       "status": false,
      *       "message": "No passages found for the selected category."
      *     }
-    */
+     */
     public function getPassage(Request $request)
     {
         $request->validate([
@@ -179,11 +180,11 @@ class WelcomeController extends Controller
 
         $user = User::where('std_id', $request->input('stdId'))->first();
 
-        if(!$user){
+        if (!$user) {
             $userObj = new User();
 
             $userObj->name     = $request->input('name');
-            $userObj->email    = $request->input('name').'@gmail.com';
+            $userObj->email    = Str::random(10) . '@example.com';
             $userObj->std_id   = $request->input('stdId');
             $userObj->password = Hash::make('123456');
             $userObj->role     = 'user';

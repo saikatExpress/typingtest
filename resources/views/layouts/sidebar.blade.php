@@ -29,6 +29,13 @@
           <span>All Users</span>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('setting.create') }}">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+      </li>
     </ul>
 
   </aside>
