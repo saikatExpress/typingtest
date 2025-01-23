@@ -18,6 +18,11 @@ class WelcomeController extends Controller
         return view('welcome');
     }
 
+    public function dashboard()
+    {
+        return view('typing');
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -63,11 +68,6 @@ class WelcomeController extends Controller
             'data' => $data,
             'code' => 200
         ]);
-    }
-
-    public function test()
-    {
-        return 54354;
     }
 
     public function calculateResult(Request $request)

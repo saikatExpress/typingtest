@@ -43,6 +43,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::controller(SettingController::class)->group(function () {
         Route::prefix('setting')->name('setting.')->group(function () {
             Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
         });
     });
 
