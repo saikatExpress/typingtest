@@ -20,7 +20,7 @@ class WelcomeController extends Controller
 
     public function dashboard()
     {
-        return view('typing');
+        return view('dashboard');
     }
 
     public function store(Request $request)

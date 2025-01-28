@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Regular Typing Test | I2U Computer</title>
+    <title>Exam Typing Test | I2U Computer</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/typing.png') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -60,7 +60,7 @@
     <h2
         class="md:text-5xl text-3xl flex justify-center font-bold font-bold text-center px-4 pt-[40px] text-transparent bg-clip-text bg-gradient-to-r from-[#02668D] to-[#02668D]">
         <a href="">
-            <img src="https://readme-typing-svg.herokuapp.com?font=roboto&weight=900&size=50&pause=1000&color=02668D&width=520&height=80&lines=+Regular+Typing+Test"
+            <img src="https://readme-typing-svg.herokuapp.com?font=roboto&weight=900&size=50&pause=1000&color=02668D&width=520&height=80&lines=+Exam+Typing+Test"
                 alt="Typing SVG" />
         </a>
     </h2>

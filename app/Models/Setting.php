@@ -13,6 +13,9 @@ class Setting extends Model
         'project_name',
         'project_logo',
         'favicon',
+        'fb_link',
+        'instagram_link',
+        'youtube_link',
         'visibility',
         'status',
     ];

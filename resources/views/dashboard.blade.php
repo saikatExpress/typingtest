@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome - Typing Test | I2U Computer</title>
+    <link rel="shortcut icon" href="{{ asset('assets/img/typing.png') }}" type="image/x-icon">
+
+    {{-- Font Awesome CDN --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+</head>
+
+<body>
+    <header>
+        <a href="{{ route('welcome') }}" class="logo">
+            <img src="{{ asset('assets/img/logo.jpeg') }}" alt="I2U Computer">
+            <span>I2U <strong>Computer</strong></span>
+        </a>
+        <nav class="menu">
+            <a href="{{ route('typing.type', ['type' => 'regular']) }}">Regular</a>
+            <a href="{{ route('typing.type', ['type' => 'exam']) }}">Exam</a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h1>Start Your Typing Journey!</h1>
+        <p>
+            Test your typing speed and accuracy with our interactive typing tools. Whether you're looking to improve or
+            challenge yourself, we have you covered.
+        </p>
+        <img src="/assets/img/typing.png" alt="Typing Illustration">
+        <a href="{{ route('typing.type', ['type' => 'regular']) }}" class="btn-start">Start Typing Now</a>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            © 2025 Typing Test. All Rights Reserved.
+            <a href="{{ route('privacy.policy') }}">Privacy Policy</a>
+        </p>
+    </footer>
+</body>
+
+</html>

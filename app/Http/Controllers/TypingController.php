@@ -8,6 +8,6 @@ class TypingController extends Controller
 {
     public function create($type)
     {
-        return view('test');
+        return view('user.' . $type);
     }
 }

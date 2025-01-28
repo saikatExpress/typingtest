@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('project_name', 250)->nullable();
             $table->string('project_logo', 250)->nullable();
             $table->string('favicon', 250)->nullable();
+            $table->string('fb_link', 250)->nullable();
+            $table->string('instagram_link', 250)->nullable();
+            $table->string('youtube_link', 250)->nullable();
             $table->enum('visibility', ['private', 'public'])->default('private');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
