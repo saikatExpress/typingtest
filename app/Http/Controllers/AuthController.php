@@ -44,9 +44,19 @@ class AuthController extends Controller
         }
     }
 
+    public function register()
+    {
+        return view('auth.register');
+    }
+
+    public function registerStore(Request $request)
+    {
+        return view('error.message');
+    }
+
     public function logout()
     {
-        Auth::logout(); // Log the user out
+        Auth::logout();
         return redirect()->route('login');
     }
 }

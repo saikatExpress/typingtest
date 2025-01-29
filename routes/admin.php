@@ -44,6 +44,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::prefix('setting')->name('setting.')->group(function () {
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
+            Route::get('/project', 'projectSetting')->name('project');
+            Route::post('/project/update', 'update')->name('project_update');
         });
     });
 

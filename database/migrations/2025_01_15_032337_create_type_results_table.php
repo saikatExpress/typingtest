@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('type_results', function (Blueprint $table) {
             $table->id();
             $table->string('name', 250)->nullable();
-            $table->unsignedBigInteger('std_id')->nullable();
+            $table->string('std_id')->nullable();
             $table->integer('gross_wpm')->nullable();
             $table->integer('net_wpm')->nullable();
             $table->string('accuracy', 250)->nullable();

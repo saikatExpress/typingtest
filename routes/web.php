@@ -23,5 +23,7 @@ Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('/login', 'create')->name('login');
         Route::post('/login', 'store')->name('login.store');
+        Route::get('/register', 'register')->name('register');
+        Route::post('/register/store', 'registerStore')->name('register.store');
     });
 });

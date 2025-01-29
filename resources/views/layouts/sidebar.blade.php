@@ -36,6 +36,12 @@
             <span>Settings</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('setting.project') }}">
+            <i class="fa-solid fa-gear"></i>
+            <span>Project Settings</span>
+        </a>
+      </li>
     </ul>
 
   </aside>

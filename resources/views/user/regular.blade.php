@@ -110,7 +110,7 @@
                                 </label>
                             </td>
                             <td class="w-2/3 border text-black border-black">
-                                <input type="number" id="std_id" name="std_id" class="p-2 h-full w-full text-black"
+                                <input type="text" id="std_id" name="std_id" class="p-2 h-full w-full text-black"
                                     placeholder="Enter your Id" required>
                             </td>
                         </tr>
@@ -283,7 +283,6 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
             clearAllFelids();
 
             let timerInterval;
