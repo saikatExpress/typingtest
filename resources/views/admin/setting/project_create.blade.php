@@ -33,7 +33,7 @@
                 <!-- Logo Upload -->
                 <div class="mb-3">
                     <label class="form-label">Project Logo</label>
-                    <input type="file" name="logo" class="form-control dropify" accept="image/*">
+                    <input type="file" name="logo" class="form-control dropify" data-default-file="{{ $setting->project_logo ? asset('uploads/' . $setting->project_logo) : '' }}" accept="image/*">
                     @error('logo')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -42,7 +42,7 @@
                 <!-- Favicon Upload -->
                 <div class="mb-3">
                     <label class="form-label">Favicon</label>
-                    <input type="file" name="favicon" class="form-control dropify" accept="image/*">
+                    <input type="file" name="favicon" class="form-control dropify" data-default-file="{{ $setting->favicon ? asset('uploads/' . $setting->favicon) : '' }}" accept="image/*">
                     @error('favicon')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror

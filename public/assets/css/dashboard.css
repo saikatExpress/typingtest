@@ -35,10 +35,11 @@ header {
 }
 
 .logo img {
-    height: 50px;
+    height: 60px;
     margin-right: 10px;
     border-radius: 50%;
     border: 2px solid #fff;
+    width: 60px;
 }
 
 .logo span {

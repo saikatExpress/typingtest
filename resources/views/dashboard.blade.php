@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome - Typing Test | I2U Computer</title>
-    <link rel="shortcut icon" href="{{ asset('assets/img/typing.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('uploads/' . $setting->favicon) }}" type="image/x-icon">
 
     {{-- Font Awesome CDN --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
@@ -17,15 +17,15 @@
 <body>
     <header>
         <a href="{{ route('welcome') }}" class="logo">
-            <img src="{{ asset('assets/img/logo.jpeg') }}" alt="I2U Computer">
-            <span>I2U <strong>Computer</strong></span>
+            <img src="{{ asset('uploads/'. $setting->project_logo) }}" alt="I2U Computer">
+            <span><strong>{{ $setting->project_name }}</strong></span>
         </a>
         <nav class="menu">
             <a href="{{ route('typing.type', ['type' => 'regular']) }}">Regular</a>
             <a href="{{ route('typing.type', ['type' => 'exam']) }}">Exam</a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="{{ $setting->fb_link }}"><i class="fa-brands fa-facebook"></i></a>
+            <a href="{{ $setting->instagram_link }}"><i class="fa-brands fa-instagram"></i></a>
+            <a href="{{ $setting->youtube_link }}"><i class="fa-brands fa-youtube"></i></a>
         </nav>
     </header>
 

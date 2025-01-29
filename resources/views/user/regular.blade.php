@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Regular Typing Test | I2U Computer</title>
-    <link rel="shortcut icon" href="{{ asset('assets/img/typing.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('uploads/' . $setting->favicon) }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -25,8 +25,13 @@
             <div class="flex items-center space-x-4">
                 <a href="{{ route('welcome') }}">
                     <span class="md:text-xl text-lg">
-                        <img style="width: 70px;height: 70px;border-radius: 5%;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
+                        @if ($setting->project_logo != null)
+                            <img style="width: 70px;height: 70px;border-radius: 5%;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
+                            src="{{ asset('uploads/' . $setting->project_logo) }}" alt="Logo">
+                        @else
+                            <img style="width: 70px;height: 70px;border-radius: 5%;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
                             src="{{ asset('assets/img/logo.jpeg') }}" alt="Logo">
+                        @endif
                     </span>
                 </a>
             </div>
@@ -41,16 +46,16 @@
                     Exam
                 </a>
                 <a class=" px-[6px] py-[1px] md:text-[20px] text-[15px] duration-300 border border-transparent hover:border hover:border-white rounded-full"
-                    href="">
+                    href="{{ $setting->fb_link }}" target="_blank">
                     <i class="fa-brands fa-facebook"></i>
                 </a>
                 <a class=" px-[6px] duration-300 md:text-[20px] py-[1px] ext-[15px] border border-transparent hover:border hover:border-white rounded-full"
-                    href="">
+                    href="{{ $setting->instagram_link }}" target="_blank">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
                 <a class=" px-[6px] duration-300 md:text-[20px] py-[1px] border ext-[15px] border-transparent hover:border hover:border-white rounded-full"
-                    href="">
-                    <i class="fa-brands fa-linkedin"></i>
+                    href="{{ $setting->youtube_link }}" target="_blank">
+                    <i class="fa-brands fa-youtube"></i>
                 </a>
             </div>
         </div>
@@ -66,7 +71,7 @@
     </h2>
 
     <div class="px-4" id="wrtingForm">
-        <div class="bg-gradient-to-r rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] max-w-[1100px] mx-auto h-[500px]">
+        <div style="background-color: aliceblue !important;" class="rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] max-w-[1100px] mx-auto h-[500px]">
             <h4 style="text-align: center;font-weight: bold;padding-top: 40px;font-size: 2rem;color: chocolate;">
                 আই টূ ইউ কম্পিউটার ইডুকেশন
             </h4>
@@ -123,6 +128,7 @@
                             </td>
                             <td class="w-2/3 border border-black">
                                 <select id="category" name="type" class="p-2 h-full w-full text-black" required>
+                                    <option value="" selected>--Select Category--</option>
                                     <option value="english">English</option>
                                     <option value="bangla">Bangla</option>
                                 </select>
@@ -137,6 +143,7 @@
                             </td>
                             <td class="w-2/3 border border-black">
                                 <select id="passage" name="time_count" class="p-2 w-full h-full" required>
+                                    <option value="" selected>--Select Time---</option>
                                     <option value="1">1 min</option>
                                     <option value="2">2 min</option>
                                     <option value="5">5 min </option>
@@ -156,7 +163,7 @@
                             </td>
                             <td class="w-2/3 border border-black">
                                 <select id="total_word" name="total_word" class="p-2 h-full w-full text-black" required>
-                                    <option value="">--select passage--</option>
+                                    <option value="">--Select Passage--</option>
                                     <option value="200">200 word Passage </option>
                                     <option value="300">300 word Passage </option>
                                     <option value="400">400 word Passage </option>
@@ -204,12 +211,10 @@
                     <span>TIME</span>
                     <span>0.00</span>
                 </div>
-
             </div>
 
             <!-- Text Area -->
-            <div class="mt-4 bg-blue-50
-          h-[350px] p-4 overflow-y-auto h-48 text-justify text-gray-700">
+            <div class="mt-4 bg-blue-50 h-[350px] p-4 overflow-y-auto h-48 text-justify text-gray-700">
                 <p id="textPassage">
 
                 </p>
@@ -257,7 +262,7 @@
                         </tr>
                         <tr>
                             <td class="py-2 px-4 border border-gray-700 font-semibold">Wrong Word Typed</td>
-                            <td class="py-2 px-4 border border-gray-700">[রেডিও][g]</td>
+                            <td class="py-2 px-4 border border-gray-700" id="wrong_words"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -269,19 +274,61 @@
     </div>
 
     <!-- main typing design start -->
-    <footer class="bg-gray-800 text-white py-4 mt-8">
-        <div class="flex justify-between px-8">
-            <p>&#169; 2025 Your Company. All rights reserved.</p>
-            <p><a href="https://freelanceit.com.bd/" target="_blank">Freelance IT Software Solution</a></p>
+    <footer class="bg-gray-900 text-white py-8 mt-8">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- About Section -->
+            <div>
+                <h2 class="text-lg font-semibold text-blue-400">About Us</h2>
+                <p class="mt-2 text-gray-400">
+                    We are a leading Computer Training Center specializing in
+                    professional typing tests, coding bootcamps, and IT skill development.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h2 class="text-lg font-semibold text-blue-400">Quick Links</h2>
+                <ul class="mt-2 space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Typing Test</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Courses</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info & Social Links -->
+            <div>
+                <h2 class="text-lg font-semibold text-blue-400">Contact Us</h2>
+                <p class="mt-2 text-gray-400">RiverEdge 10/A KB, Ismail Road, Mymensingh</p>
+                <p class="text-gray-400">Email: mrskuet08@gmail.com</p>
+                <p class="text-gray-400">Phone: +880 01839-973100</p>
+
+                <!-- Social Media Icons -->
+                <div class="flex space-x-4 mt-3">
+                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Copyright -->
+        <div class="border-t border-gray-700 mt-6 pt-4 text-center text-gray-400">
+            <p>&#169; 2025 Freelance IT Software Solution. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- FontAwesome for Social Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/type.js') }}"></script>
 
     <script type="text/javascript">
-
         $(document).ready(function () {
             clearAllFelids();
 
@@ -308,17 +355,31 @@
                 const stdId     = $('#std_id').val();
                 const name      = $('#name').val();
 
+                const stdIdPattern = /^2-\d+$/;
+
+                $('.error-message').remove();
+
+                let isValid = true;
+
                 if (!category || !totalWord || !name || !stdId) {
                     displayMessage('Please fill all fields.', 'error');
                     return;
                 }
 
-                getPassage(category, totalWord, name, stdId);
+                // Validate std_id format
+                if (!stdIdPattern.test(stdId)) {
+                    isValid = false;
+                    $('#std_id').after('<div class="text-red-500 error-message">ID must start with "2-" followed by numbers.</div>');
+                }
+
+                if (isValid) {
+                    getPassage(category, totalWord, name, stdId);
+                }
             }
 
             // Handle typing input focus to start the timer
             function handleTypingStart() {
-                timeLimit = $('#typeTime').val() * 60; // Convert minutes to seconds
+                timeLimit = $('#typeTime').val() * 60;
                 if (timeLimit && !timerInterval) {
                     startTimer(timeLimit);
                 }
@@ -362,19 +423,88 @@
             // Compare typed text with passage
             function compareText(typed, passage) {
                 let highlightedText = '';
-                const wordsTyped = typed.split(' ');
-                const wordsPassage = passage.split(' ');
+                let wrongWords = [];
+                let wordCount = {};
+                let doubleWords = [];
+                let doubleWordCount = 0;
+
+                const wordsTyped = typed.trim().split(/\s+/);
+                const wordsPassage = passage.trim().split(/\s+/);
+
+                wordsTyped.forEach((word) => {
+                    wordCount[word] = (wordCount[word] || 0) + 1;
+                });
 
                 wordsPassage.forEach((word, index) => {
                     if (wordsTyped[index] === word) {
                         highlightedText += `<span class="text-green-600">${word}</span> `;
                     } else {
                         highlightedText += `<span class="text-red-600">${word}</span> `;
+                        if (wordsTyped[index]) {
+                            wrongWords.push(`[${word}][${wordsTyped[index]}]`);
+                        }
                     }
                 });
 
+                // Find words that were typed more than once
+                for (const word in wordCount) {
+                    if (wordCount[word] > 1) {
+                        doubleWords.push(word);
+                        doubleWordCount++; // Count how many words were typed more than once
+                    }
+                }
+
+                // Update the UI with results
+                $('#wrong_words').html(wrongWords.join(', ')); // Wrong words display
+                $('#double_words').html(`${doubleWordCount}, ${doubleWords.join(', ')}`); // Double words display
+
                 return { highlightedText };
             }
+
+            // function compareText(typed, passage) {
+            //     let wordsTyped = typed.trim().split(/\s+/);
+            //     let wordsPassage = passage.trim().split(/\s+/);
+            //     let highlightedText = '';
+            //     let doubleWords = [];
+            //     let doubleWordCount = 0;
+            //     let incorrectCount = 0;
+            //     let wordCount = {};
+
+            //     // Count occurrences of each typed word
+            //     wordsTyped.forEach((word) => {
+            //         wordCount[word] = (wordCount[word] || 0) + 1;
+            //     });
+
+            //     for (let i = 0; i < wordsPassage.length; i++) {
+            //         let passageWord = wordsPassage[i];
+            //         let typedWord = wordsTyped[i] || ''; // Get the corresponding typed word
+
+            //         if (typedWord) {
+            //             if (typedWord === passageWord) {
+            //                 highlightedText += `<span class="text-green-600">${passageWord}</span> `;
+            //             } else {
+            //                 highlightedText += `<span class="text-red-600">${passageWord}</span> `;
+            //                 incorrectCount++;
+            //             }
+            //         } else {
+            //             highlightedText += `<span class="text-gray-400">${passageWord}</span> `;
+            //         }
+            //     }
+
+            //     // Find words that were typed more than once
+            //     for (const word in wordCount) {
+            //         if (wordCount[word] > 1) {
+            //             doubleWords.push(word);
+            //             doubleWordCount++;
+            //         }
+            //     }
+
+            //     // Update UI
+            //     $('#double_words').html(`${doubleWordCount}, ${doubleWords.join(', ')}`);
+            //     $('#wrong_words').html(incorrectCount);
+            //     $('#passage_display').html(highlightedText); // Update passage display
+            // }
+
 
             // Calculate stats (GWPM, NWPM, Accuracy)
             function calculateStats() {
@@ -505,8 +635,6 @@
                 location.reload();
             }
         });
-
-
     </script>
 </body>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -11,7 +12,9 @@ class AuthController extends Controller
 {
     public function create()
     {
-        return view('auth.login');
+        $setting = Setting::latest()->first();
+
+        return view('auth.login', compact('setting'));
     }
 
     public function store(Request $request)

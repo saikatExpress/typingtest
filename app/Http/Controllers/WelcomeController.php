@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Passage;
+use App\Models\Setting;
 use App\Models\TypeResult;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,12 +16,16 @@ class WelcomeController extends Controller
 {
     public function welcome()
     {
-        return view('welcome');
+        $setting = Setting::latest()->first();
+
+        return view('welcome', compact('setting'));
     }
 
     public function dashboard()
     {
-        return view('dashboard');
+        $setting = Setting::latest()->first();
+
+        return view('dashboard', compact('setting'));
     }
 
     public function store(Request $request)

@@ -9,7 +9,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <link rel="shortcut icon" href="{{ asset('assets/img/typing.png') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('uploads/' . $setting->favicon) }}" type="image/x-icon">
 
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -36,7 +36,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="{{ route('welcome') }}" class="logo d-flex align-items-center w-auto">
-                  <img src="{{ asset('assets/img/logo.jpeg') }}" alt="">
+                  <img src="{{ asset('uploads/' . $setting->project_logo) }}" alt="">
                   <span class="d-none d-lg-block">I2U Computer</span>
                 </a>
               </div>

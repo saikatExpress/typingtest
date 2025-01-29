@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="{{ asset('assets/img/typing.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('uploads/' . $setting->favicon) }}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Welcome - Typing Test | I2U Computer</title>
     <link rel="stylesheet" href="{{ asset('assets/css/welcome.css') }}">
