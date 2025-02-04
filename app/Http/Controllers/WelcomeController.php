@@ -173,7 +173,7 @@ class WelcomeController extends Controller
      *       "status": false,
      *       "message": "No passages found for the selected category."
      *     }
-     */
+    */
     public function getPassage(Request $request)
     {
         $request->validate([

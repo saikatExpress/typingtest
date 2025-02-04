@@ -8,7 +8,6 @@ use App\Http\Controllers\WelcomeController;
 
 Route::middleware(['project.visibility'])->group(function(){
     Route::controller(WelcomeController::class)->group(function () {
-        Route::get('/user/dashboard', 'dashboard')->name('user.dashboard');
         Route::post('/writing/store', 'store')->name('writing.store');
         Route::post('/get-passage', 'getPassage')->name('get.passage');
         Route::post('/typing-results', 'calculateResult')->name('calculate.result');

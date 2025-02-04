@@ -16,7 +16,9 @@ use App\Http\Controllers\WelcomeController;
 */
 
 
-Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+Route::controller(WelcomeController::class)->group(function () {
+    Route::get('/', 'dashboard')->name('welcome');
+});
 
 
 Route::middleware('guest')->group(function () {

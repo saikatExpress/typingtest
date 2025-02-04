@@ -36,7 +36,12 @@
             Test your typing speed and accuracy with our interactive typing tools. Whether you're looking to improve or
             challenge yourself, we have you covered.
         </p>
-        <img src="/assets/img/typing.png" alt="Typing Illustration">
+        @if ($setting->project_logo != null)
+            <img style="border-radius: 50%; width:300px;height:300px;" src="{{ asset('uploads/' . $setting->project_logo) }}" alt="Typing Illustration">
+        @else
+            <img src="/assets/img/typing.png" alt="Typing Illustration">
+        @endif
+
         <a href="{{ route('typing.type', ['type' => 'regular']) }}" class="btn-start">Start Typing Now</a>
     </main>
 
