@@ -42,7 +42,6 @@
             <img src="/assets/img/typing.png" alt="Typing Illustration">
         @endif
 
-        <a href="{{ route('typing.type', ['type' => 'regular']) }}" class="btn-start">Start Typing Now</a>
     </main>
 
     <!-- Footer -->

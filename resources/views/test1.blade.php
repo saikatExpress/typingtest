@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Exam Typing Test | I2U Computer</title>
+    <title>Regular Typing Test | I2U Computer</title>
     <link rel="shortcut icon" href="{{ asset('uploads/' . $setting->favicon) }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -13,16 +13,6 @@
     <style>
         input::placeholder {
             color: black;
-        }
-        .logo {
-            font-weight: 300;
-            text-transform: uppercase;
-            font-size: 2rem;
-        }
-
-        .logo strong {
-            font-weight: 700;
-            color: #ffed4a;
         }
     </style>
 
@@ -44,7 +34,6 @@
                         @endif
                     </span>
                 </a>
-                <span class="logo"><strong>{{ $setting->project_name }}</strong></span>
             </div>
 
             <div class="flex gap-2 items-center justify-center ">
@@ -76,15 +65,15 @@
     <h2
         class="md:text-5xl text-3xl flex justify-center font-bold font-bold text-center px-4 pt-[40px] text-transparent bg-clip-text bg-gradient-to-r from-[#02668D] to-[#02668D]">
         <a href="">
-            <img src="https://readme-typing-svg.herokuapp.com?font=roboto&weight=900&size=50&pause=1000&color=02668D&width=520&height=80&lines=+Exam+Typing+Test"
+            <img src="https://readme-typing-svg.herokuapp.com?font=roboto&weight=900&size=50&pause=1000&color=02668D&width=520&height=80&lines=+Regular+Typing+Test"
                 alt="Typing SVG" />
         </a>
     </h2>
 
     <div class="px-4" id="wrtingForm">
-        <div class="rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] max-w-[1100px] mx-auto h-[500px]" style="background-color: powderblue;">
+        <div style="background-color: aliceblue !important;" class="rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] max-w-[1100px] mx-auto h-[500px]">
             <h4 style="text-align: center;font-weight: bold;padding-top: 40px;font-size: 2rem;color: chocolate;">
-                {{ $setting->project_name }}
+                আই টূ ইউ কম্পিউটার ইডুকেশন
             </h4>
 
             <div class="">
@@ -222,12 +211,10 @@
                     <span>TIME</span>
                     <span>0.00</span>
                 </div>
-
             </div>
 
             <!-- Text Area -->
-            <div class="mt-4 bg-blue-50
-          h-[350px] p-4 overflow-y-auto h-48 text-justify text-gray-700">
+            <div class="mt-4 bg-blue-50 h-[350px] p-4 overflow-y-auto h-48 text-justify text-gray-700">
                 <p id="textPassage">
 
                 </p>
@@ -333,6 +320,10 @@
         </div>
     </footer>
 
+    <!-- FontAwesome for Social Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/type.js') }}"></script>
@@ -408,171 +399,216 @@
 
             // Start countdown timer
             function startTimer(timeRemaining) {
-				clearInterval(timerInterval); // Clear any previous timer
-				timerInterval = setInterval(() => {
-					if (timeRemaining > 0) {
-						timeRemaining--;
-						updateTimerDisplay(timeRemaining);
-					} else {
-						clearInterval(timerInterval);
-						$('#timer').text('00:00');
-						calculateStats();
-						submitForm();
-					}
-				}, 1000);
-			}
+                clearInterval(timerInterval); // Clear any previous timer
+                timerInterval = setInterval(() => {
+                    if (timeRemaining > 0) {
+                        timeRemaining--;
+                        updateTimerDisplay(timeRemaining);
+                    } else {
+                        clearInterval(timerInterval);
+                        $('#timer').text('00:00');
+                        calculateStats();
+                        submitForm();
+                    }
+                }, 1000);
+            }
 
-			function updateTimerDisplay(timeRemaining) {
-				const minutes = Math.floor(timeRemaining / 60);
-				const seconds = timeRemaining % 60;
-				$('#timer').text(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-			}
+            // Update timer display
+            function updateTimerDisplay(timeRemaining) {
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                $('#timer').text(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+            }
 
             // Compare typed text with passage
             function compareText(typed, passage) {
-				let highlightedText = '';
-				let wrongWords = [];
-				let wordCount = {};
-				let doubleWords = [];
-				let doubleWordCount = 0;
+                let highlightedText = '';
+                let wrongWords = [];
+                let wordCount = {};
+                let doubleWords = [];
+                let doubleWordCount = 0;
 
-				const wordsTyped = typed.trim().split(/\s+/);
-				const wordsPassage = passage.trim().split(/\s+/);
+                const wordsTyped = typed.trim().split(/\s+/);
+                const wordsPassage = passage.trim().split(/\s+/);
 
-				wordsTyped.forEach((word) => {
-					wordCount[word] = (wordCount[word] || 0) + 1;
-				});
+                wordsTyped.forEach((word) => {
+                    wordCount[word] = (wordCount[word] || 0) + 1;
+                });
 
-				wordsPassage.forEach((word, index) => {
-					if (wordsTyped[index] === word) {
-						highlightedText += `<span class="text-green-600">${word}</span> `;
-					} else {
-						highlightedText += `<span class="text-red-600">${word}</span> `;
-						if (wordsTyped[index]) {
-							wrongWords.push(`[${word}][${wordsTyped[index]}]`);
-						}
-					}
-				});
+                wordsPassage.forEach((word, index) => {
+                    if (wordsTyped[index] === word) {
+                        highlightedText += `<span class="text-green-600">${word}</span> `;
+                    } else {
+                        highlightedText += `<span class="text-red-600">${word}</span> `;
+                        if (wordsTyped[index]) {
+                            wrongWords.push(`[${word}][${wordsTyped[index]}]`);
+                        }
+                    }
+                });
 
-				// Find words that were typed more than once
-				for (const word in wordCount) {
-					if (wordCount[word] > 1) {
-						doubleWords.push(word);
-						doubleWordCount++; // Count how many words were typed more than once
-					}
-				}
+                // Find words that were typed more than once
+                for (const word in wordCount) {
+                    if (wordCount[word] > 1) {
+                        doubleWords.push(word);
+                        doubleWordCount++; // Count how many words were typed more than once
+                    }
+                }
 
-				// Update the UI with results
-				$('#wrong_words').html(wrongWords.join(', ')); // Wrong words display
-				$('#double_words').html(`${doubleWordCount}, ${doubleWords.join(', ')}`); // Double words display
+                // Update the UI with results
+                $('#wrong_words').html(wrongWords.join(', ')); // Wrong words display
+                $('#double_words').html(`${doubleWordCount}, ${doubleWords.join(', ')}`); // Double words display
 
-				return { highlightedText };
-			}
+                return { highlightedText };
+            }
+
+            // function compareText(typed, passage) {
+            //     let wordsTyped = typed.trim().split(/\s+/);
+            //     let wordsPassage = passage.trim().split(/\s+/);
+            //     let highlightedText = '';
+            //     let doubleWords = [];
+            //     let doubleWordCount = 0;
+            //     let incorrectCount = 0;
+            //     let wordCount = {};
+
+            //     // Count occurrences of each typed word
+            //     wordsTyped.forEach((word) => {
+            //         wordCount[word] = (wordCount[word] || 0) + 1;
+            //     });
+
+            //     for (let i = 0; i < wordsPassage.length; i++) {
+            //         let passageWord = wordsPassage[i];
+            //         let typedWord = wordsTyped[i] || ''; // Get the corresponding typed word
+
+            //         if (typedWord) {
+            //             if (typedWord === passageWord) {
+            //                 highlightedText += `<span class="text-green-600">${passageWord}</span> `;
+            //             } else {
+            //                 highlightedText += `<span class="text-red-600">${passageWord}</span> `;
+            //                 incorrectCount++;
+            //             }
+            //         } else {
+            //             highlightedText += `<span class="text-gray-400">${passageWord}</span> `;
+            //         }
+            //     }
+
+            //     // Find words that were typed more than once
+            //     for (const word in wordCount) {
+            //         if (wordCount[word] > 1) {
+            //             doubleWords.push(word);
+            //             doubleWordCount++;
+            //         }
+            //     }
+
+            //     // Update UI
+            //     $('#double_words').html(`${doubleWordCount}, ${doubleWords.join(', ')}`);
+            //     $('#wrong_words').html(incorrectCount);
+            //     $('#passage_display').html(highlightedText); // Update passage display
+            // }
 
 
             // Calculate stats (GWPM, NWPM, Accuracy)
             function calculateStats() {
-				const typedText = $('#type_here').val();
-				const passageText = $('#textPassage').text();
-				const typedWords = typedText.trim().split(/\s+/).length;
-				const correctWords = typedText.split(' ').filter((word, index) => word === passageText.split(' ')[index]).length;
-				const timeTaken = $('#typeTime').val() * 60 - timeLimit;
+                const typedText = $('#type_here').val();
+                const passageText = $('#textPassage').text();
+                const typedWords = typedText.trim().split(/\s+/).length;
+                const correctWords = typedText.split(' ').filter((word, index) => word === passageText.split(' ')[index]).length;
+                const timeTaken = $('#typeTime').val() * 60 - timeLimit;
 
-				const gwpm = (typedWords / (timeTaken / 60)).toFixed(2);
-				const nwpm = (correctWords / (timeTaken / 60)).toFixed(2);
-				const accuracy = ((correctWords / typedWords) * 100).toFixed(2);
+                const gwpm = (typedWords / (timeTaken / 60)).toFixed(2);
+                const nwpm = (correctWords / (timeTaken / 60)).toFixed(2);
+                const accuracy = ((correctWords / typedWords) * 100).toFixed(2);
 
-				$('#gwpm').text(gwpm);
-				$('#nwpm').text(nwpm);
-				$('#accu').text(`${accuracy}%`);
-			}
+                $('#gwpm').text(gwpm);
+                $('#nwpm').text(nwpm);
+                $('#accu').text(`${accuracy}%`);
+            }
 
             // Submit the form via AJAX
             function submitForm() {
-				const data = {
-					name: $('#name').val(),
-					std_id: $('#std_id').val(),
-					category: $('#category').val(),
-					time_count: $('#passage').val(),
-					passage: $('#textPassage').text(),
-					typed_text: $('#type_here').val(),
-					gwpm: $('#gwpm').text(),
-					nwpm: $('#nwpm').text(),
-					accuracy: $('#accu').text(),
-					_token: $('meta[name="csrf-token"]').attr('content'),
-				};
+                const data = {
+                    name: $('#name').val(),
+                    std_id: $('#std_id').val(),
+                    category: $('#category').val(),
+                    time_count: $('#passage').val(),
+                    passage: $('#textPassage').text(),
+                    typed_text: $('#type_here').val(),
+                    gwpm: $('#gwpm').text(),
+                    nwpm: $('#nwpm').text(),
+                    accuracy: $('#accu').text(),
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                };
 
-				$.ajax({
-					url: '/typing-results',
-					method: 'POST',
-					data: data,
-					success: function (response) {
-						if (response && response.status === true) {
-							let skippedWords = response.data.skipped_words;
-							let wordCount = calculateWordCount(skippedWords);
-							Swal.fire({
-								icon: 'success',
-								title: 'Results saved successfully!',
-								text: 'The typing results have been processed and saved.',
-								confirmButtonText: 'OK'
-							}).then(() => {
-								$('#std_name').text(response.data.name);
-								$('#gwpm').text(response.data.gross_wpm);
-								$('#net_wpm').text(response.data.net_wpm);
-								$('#accuracy').text(response.data.accuracy);
-								$('#double_words').text(response.data.double_words);
-								$('#skipped_words').text(wordCount);
-								displayMessage('Results saved successfully!', 'success');
-								$('#result_box').show();
-								$('#type_here').prop('disabled', true);
-								$('html, body').animate({
-									scrollTop: $('#result_box').offset().top
-								}, 1000);
-							});
-						}
-					},
-					error: function () {
-						displayMessage('An error occurred while saving results.', 'error');
-					},
-				});
-			}
+                $.ajax({
+                    url: '/typing-results',
+                    method: 'POST',
+                    data: data,
+                    success: function (response) {
+                        if(response && response.status === true){
+                            let skippedWords = response.data.skipped_words;
+                            let wordCount = calculateWordCount(skippedWords);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Results saved successfully!',
+                                text: 'The typing results have been processed and saved.',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                $('#std_name').text(response.data.name);
+                                $('#gwpm').text(response.data.gross_wpm);
+                                $('#net_wpm').text(response.data.net_wpm);
+                                $('#accuracy').text(response.data.accuracy);
+                                $('#double_words').text(response.data.double_words);
+                                $('#skipped_words').text(wordCount);
+                                displayMessage('Results saved successfully!', 'success');
+                                $('#result_box').show();
+                                $('#type_here').prop('disabled', true);
+                                $('html, body').animate({
+                                    scrollTop: $('#result_box').offset().top
+                                }, 1000);
+                            });
+                        }
+                    },
+                    error: function () {
+                        displayMessage('An error occurred while saving results.', 'error');
+                    },
+                });
+            }
             function calculateWordCount(words) {
                 const wordArray = words.split(',').filter(word => word.trim() !== '');
                 return wordArray.length;
             }
 
             // Fetch passage dynamically
-            function getPassage(category, totalWord, name, stdId) {
-				const formData = {
-					name: name,
-					stdId: stdId,
-					category: category,
-					total_word: totalWord,
-					_token: $('meta[name="csrf-token"]').attr('content'),
-				};
+            function getPassage(category, totalWord, name,stdId) {
+                const formData = {
+                    name: name,
+                    stdId: stdId,
+                    category: category,
+                    total_word: totalWord,
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                };
 
-				$.ajax({
-					url: '/get-passage',
-					method: 'POST',
-					data: formData,
-					success: function (response) {
-						if (response.status === true) {
-							$('#textPassage').html(response.data.passage);
-							$('#typeTime').val($('#passage').val());
-							displayMessage('Passage loaded successfully!', 'success');
-							$('#passage_box').show();
-							$('html, body').animate({
-								scrollTop: $('#passage_box').offset().top
-							}, 1000);
-						} else {
-							displayMessage(`Error: ${response.message}`, 'error');
-						}
-					},
-					error: function () {
-						displayMessage('An error occurred. Please try again later.', 'error');
-					},
-				});
-			}
+                $.ajax({
+                    url: '/get-passage',
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.status === true) {
+                            $('#textPassage').html(response.data.passage);
+                            $('#typeTime').val($('#passage').val());
+                            displayMessage('Passage loaded successfully!', 'success');
+                            $('#passage_box').show();
+                            $('html, body').animate({
+                                scrollTop: $('#passage_box').offset().top
+                            }, 1000);
+                        } else {
+                            displayMessage(`Error: ${response.message}`, 'error');
+                        }
+                    },
+                    error: function () {
+                        displayMessage('An error occurred. Please try again later.', 'error');
+                    },
+                });
+            }
 
             // Display response message
             function displayMessage(message, type) {
