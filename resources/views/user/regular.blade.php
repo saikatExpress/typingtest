@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Regular Typing Test | I2U Computer</title>
+    <title>Regular Typing Test | i2u Computer</title>
     <link rel="shortcut icon" href="{{ asset('uploads/' . $setting->favicon) }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -106,6 +106,19 @@
                     action="{{ route('writing.store') }}" method="POST">
                     @csrf
                     <table class="max-w-[440px] mx-auto">
+
+                        <tr>
+                            <td class="w-1/3 text-sm px-2 group font-medium text-gray-700 border border-black">
+                                <label for="std_id" class="text-black md:text-[14px] text-[12px]duration-300 ease-in-out">
+                                    Your ID
+                                </label>
+                            </td>
+                            <td class="w-2/3 border text-black border-black">
+                                <input type="text" id="std_id" name="std_id" class="p-2 h-full w-full text-black" placeholder="Enter your Id"
+                                    required>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td class="w-1/3 text-sm px-2 group font-medium text-gray-700 border border-black">
                                 <label for="name"
@@ -119,18 +132,6 @@
                             </td>
                         </tr>
 
-                        <tr>
-                            <td class="w-1/3 text-sm px-2 group font-medium text-gray-700 border border-black">
-                                <label for="std_id"
-                                    class="text-black md:text-[14px] text-[12px]duration-300 ease-in-out">
-                                    Your ID
-                                </label>
-                            </td>
-                            <td class="w-2/3 border text-black border-black">
-                                <input type="text" id="std_id" name="std_id" class="p-2 h-full w-full text-black"
-                                    placeholder="Enter your Id" required>
-                            </td>
-                        </tr>
                         <tr>
                             <td class="w-[170px] text-sm px-2 group font-medium text-gray-700 border border-black">
                                 <label for="passage"
@@ -352,10 +353,38 @@
 
             // Function to initialize event listeners
             function initializeEvents() {
+                $('#std_id').on('input', searchUser);
                 $('#start_typing').on('click', handleStartTyping);
                 $('#text-again').on('click', clearPage);
                 $('#type_here').on('focus', handleTypingStart);
                 $('#type_here').on('input', handleTypingInput);
+            }
+
+            function searchUser(){
+                const stdId = $(this).val();
+                if (stdId.length === 0) {
+                    clearAllFelids();
+                    return;
+                }
+
+                $.ajax({
+                    url: '{{ route('get-student-by-id') }}',
+                    method: 'GET',
+                    data: { stdId },
+                    success: function(response) {
+                        if (response.status ==='success') {
+                            const data = response.data;
+
+                            $('#name').val(data.name);
+                        } else {
+                            displayMessage(response.message, 'error');
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        displayMessage('An error occurred while fetching student information.', 'error');
+                    }
+                });
             }
 
             // Handle start typing button click
@@ -367,7 +396,7 @@
                 const stdId     = $('#std_id').val();
                 const name      = $('#name').val();
 
-                const stdIdPattern = /^2-\d+$/;
+                const stdIdPattern = /^[1-9]-\d+$/;
 
                 $('.error-message').remove();
 

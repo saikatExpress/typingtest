@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome - Typing Test | I2U Computer</title>
+    <title>Welcome - Typing Test | i2u Computer</title>
     <link rel="shortcut icon" href="{{ asset('uploads/' . $setting->favicon) }}" type="image/x-icon">
 
     {{-- Font Awesome CDN --}}

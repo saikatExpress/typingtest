@@ -22,4 +22,6 @@ Route::middleware(['project.visibility'])->group(function(){
             Route::get('/type/{type}', 'create')->name('type');
         });
     });
+
+    Route::get('/get-student-by-id', [TypingController::class, 'getStdId'])->name('get-student-by-id');
 });
