@@ -14,6 +14,7 @@
         input::placeholder {
             color: black;
         }
+
         .logo {
             font-weight: 300;
             text-transform: uppercase;
@@ -37,10 +38,10 @@
                     <span class="md:text-xl text-lg">
                         @if ($setting->project_logo != null)
                             <img style="width: 70px;height: 70px;border-radius: 5%;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
-                            src="{{ asset('uploads/' . $setting->project_logo) }}" alt="Logo">
+                                src="{{ asset('uploads/' . $setting->project_logo) }}" alt="Logo">
                         @else
                             <img style="width: 70px;height: 70px;border-radius: 5%;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;"
-                            src="{{ asset('assets/img/logo.jpeg') }}" alt="Logo">
+                                src="{{ asset('assets/img/logo.jpeg') }}" alt="Logo">
                         @endif
                     </span>
                 </a>
@@ -48,6 +49,10 @@
             </div>
 
             <div class="flex gap-2 items-center justify-center ">
+                <a class=" px-[6px] py-[1px] md:text-[20px] text-[15px] duration-300 border border-transparent hover:border hover:border-white rounded-full"
+                    href="{{ route('welcome') }}">
+                    Home
+                </a>
                 <a class=" px-[6px] py-[1px] md:text-[20px] text-[15px] duration-300 border border-transparent hover:border hover:border-white rounded-full"
                     href="{{ route('typing.type', ['type' => 'regular']) }}">
                     Regular
@@ -82,7 +87,8 @@
     </h2>
 
     <div class="px-4" id="wrtingForm">
-        <div class="rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] max-w-[1100px] mx-auto h-[500px]" style="background-color: powderblue;">
+        <div class="rounded-md shadow-md from-[#2BBCE3] to-[#2BBCE3] max-w-[1100px] mx-auto h-[500px]"
+            style="background-color: powderblue;">
             <h4 style="text-align: center;font-weight: bold;padding-top: 40px;font-size: 2rem;color: chocolate;">
                 {{ $setting->project_name }}
             </h4>
@@ -388,10 +394,10 @@
             function handleStartTyping(e) {
                 e.preventDefault();
 
-                const category  = $('#category').val();
+                const category = $('#category').val();
                 const totalWord = $('#total_word').val();
-                const stdId     = $('#std_id').val();
-                const name      = $('#name').val();
+                const stdId = $('#std_id').val();
+                const name = $('#name').val();
 
                 const stdIdPattern = /^[1-9]-\d+$/;
 
@@ -437,134 +443,134 @@
 
             // Start countdown timer
             function startTimer(timeRemaining) {
-				clearInterval(timerInterval); // Clear any previous timer
-				timerInterval = setInterval(() => {
-					if (timeRemaining > 0) {
-						timeRemaining--;
-						updateTimerDisplay(timeRemaining);
-					} else {
-						clearInterval(timerInterval);
-						$('#timer').text('00:00');
-						calculateStats();
-						submitForm();
-					}
-				}, 1000);
-			}
+                clearInterval(timerInterval); // Clear any previous timer
+                timerInterval = setInterval(() => {
+                    if (timeRemaining > 0) {
+                        timeRemaining--;
+                        updateTimerDisplay(timeRemaining);
+                    } else {
+                        clearInterval(timerInterval);
+                        $('#timer').text('00:00');
+                        calculateStats();
+                        submitForm();
+                    }
+                }, 1000);
+            }
 
-			function updateTimerDisplay(timeRemaining) {
-				const minutes = Math.floor(timeRemaining / 60);
-				const seconds = timeRemaining % 60;
-				$('#timer').text(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-			}
+            function updateTimerDisplay(timeRemaining) {
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                $('#timer').text(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+            }
 
             // Compare typed text with passage
             function compareText(typed, passage) {
-				let highlightedText = '';
-				let wrongWords = [];
-				let wordCount = {};
-				let doubleWords = [];
-				let doubleWordCount = 0;
+                let highlightedText = '';
+                let wrongWords = [];
+                let wordCount = {};
+                let doubleWords = [];
+                let doubleWordCount = 0;
 
-				const wordsTyped = typed.trim().split(/\s+/);
-				const wordsPassage = passage.trim().split(/\s+/);
+                const wordsTyped = typed.trim().split(/\s+/);
+                const wordsPassage = passage.trim().split(/\s+/);
 
-				wordsTyped.forEach((word) => {
-					wordCount[word] = (wordCount[word] || 0) + 1;
-				});
+                wordsTyped.forEach((word) => {
+                    wordCount[word] = (wordCount[word] || 0) + 1;
+                });
 
-				wordsPassage.forEach((word, index) => {
-					if (wordsTyped[index] === word) {
-						highlightedText += `<span class="text-green-600">${word}</span> `;
-					} else {
-						highlightedText += `<span class="text-red-600">${word}</span> `;
-						if (wordsTyped[index]) {
-							wrongWords.push(`[${word}][${wordsTyped[index]}]`);
-						}
-					}
-				});
+                wordsPassage.forEach((word, index) => {
+                    if (wordsTyped[index] === word) {
+                        highlightedText += `<span class="text-green-600">${word}</span> `;
+                    } else {
+                        highlightedText += `<span class="text-red-600">${word}</span> `;
+                        if (wordsTyped[index]) {
+                            wrongWords.push(`[${word}][${wordsTyped[index]}]`);
+                        }
+                    }
+                });
 
-				// Find words that were typed more than once
-				for (const word in wordCount) {
-					if (wordCount[word] > 1) {
-						doubleWords.push(word);
-						doubleWordCount++; // Count how many words were typed more than once
-					}
-				}
+                // Find words that were typed more than once
+                for (const word in wordCount) {
+                    if (wordCount[word] > 1) {
+                        doubleWords.push(word);
+                        doubleWordCount++; // Count how many words were typed more than once
+                    }
+                }
 
-				// Update the UI with results
-				$('#wrong_words').html(wrongWords.join(', ')); // Wrong words display
-				$('#double_words').html(`${doubleWordCount}, ${doubleWords.join(', ')}`); // Double words display
+                // Update the UI with results
+                $('#wrong_words').html(wrongWords.join(', ')); // Wrong words display
+                $('#double_words').html(`${doubleWordCount}, ${doubleWords.join(', ')}`); // Double words display
 
-				return { highlightedText };
-			}
+                return { highlightedText };
+            }
 
 
             // Calculate stats (GWPM, NWPM, Accuracy)
             function calculateStats() {
-				const typedText = $('#type_here').val();
-				const passageText = $('#textPassage').text();
-				const typedWords = typedText.trim().split(/\s+/).length;
-				const correctWords = typedText.split(' ').filter((word, index) => word === passageText.split(' ')[index]).length;
-				const timeTaken = $('#typeTime').val() * 60 - timeLimit;
+                const typedText = $('#type_here').val();
+                const passageText = $('#textPassage').text();
+                const typedWords = typedText.trim().split(/\s+/).length;
+                const correctWords = typedText.split(' ').filter((word, index) => word === passageText.split(' ')[index]).length;
+                const timeTaken = $('#typeTime').val() * 60 - timeLimit;
 
-				const gwpm = (typedWords / (timeTaken / 60)).toFixed(2);
-				const nwpm = (correctWords / (timeTaken / 60)).toFixed(2);
-				const accuracy = ((correctWords / typedWords) * 100).toFixed(2);
+                const gwpm = (typedWords / (timeTaken / 60)).toFixed(2);
+                const nwpm = (correctWords / (timeTaken / 60)).toFixed(2);
+                const accuracy = ((correctWords / typedWords) * 100).toFixed(2);
 
-				$('#gwpm').text(gwpm);
-				$('#nwpm').text(nwpm);
-				$('#accu').text(`${accuracy}%`);
-			}
+                $('#gwpm').text(gwpm);
+                $('#nwpm').text(nwpm);
+                $('#accu').text(`${accuracy}%`);
+            }
 
             // Submit the form via AJAX
             function submitForm() {
-				const data = {
-					name: $('#name').val(),
-					std_id: $('#std_id').val(),
-					category: $('#category').val(),
-					time_count: $('#passage').val(),
-					passage: $('#textPassage').text(),
-					typed_text: $('#type_here').val(),
-					gwpm: $('#gwpm').text(),
-					nwpm: $('#nwpm').text(),
-					accuracy: $('#accu').text(),
-					_token: $('meta[name="csrf-token"]').attr('content'),
-				};
+                const data = {
+                    name: $('#name').val(),
+                    std_id: $('#std_id').val(),
+                    category: $('#category').val(),
+                    time_count: $('#passage').val(),
+                    passage: $('#textPassage').text(),
+                    typed_text: $('#type_here').val(),
+                    gwpm: $('#gwpm').text(),
+                    nwpm: $('#nwpm').text(),
+                    accuracy: $('#accu').text(),
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                };
 
-				$.ajax({
-					url: '/typing-results',
-					method: 'POST',
-					data: data,
-					success: function (response) {
-						if (response && response.status === true) {
-							let skippedWords = response.data.skipped_words;
-							let wordCount = calculateWordCount(skippedWords);
-							Swal.fire({
-								icon: 'success',
-								title: 'Results saved successfully!',
-								text: 'The typing results have been processed and saved.',
-								confirmButtonText: 'OK'
-							}).then(() => {
-								$('#std_name').text(response.data.name);
-								$('#gwpm').text(response.data.gross_wpm);
-								$('#net_wpm').text(response.data.net_wpm);
-								$('#accuracy').text(response.data.accuracy);
-								$('#double_words').text(response.data.double_words);
-								$('#skipped_words').text(wordCount);
-								displayMessage('Results saved successfully!', 'success');
-								$('#result_box').show();
-								$('#type_here').prop('disabled', true);
-								$('html, body').animate({
-									scrollTop: $('#result_box').offset().top
-								}, 1000);
-							});
-						}
-					},
-					error: function () {
-						displayMessage('An error occurred while saving results.', 'error');
-					},
-				});
-			}
+                $.ajax({
+                    url: '/typing-results',
+                    method: 'POST',
+                    data: data,
+                    success: function (response) {
+                        if (response && response.status === true) {
+                            let skippedWords = response.data.skipped_words;
+                            let wordCount = calculateWordCount(skippedWords);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Results saved successfully!',
+                                text: 'The typing results have been processed and saved.',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                $('#std_name').text(response.data.name);
+                                $('#gwpm').text(response.data.gross_wpm);
+                                $('#net_wpm').text(response.data.net_wpm);
+                                $('#accuracy').text(response.data.accuracy);
+                                $('#double_words').text(response.data.double_words);
+                                $('#skipped_words').text(wordCount);
+                                displayMessage('Results saved successfully!', 'success');
+                                $('#result_box').show();
+                                $('#type_here').prop('disabled', true);
+                                $('html, body').animate({
+                                    scrollTop: $('#result_box').offset().top
+                                }, 1000);
+                            });
+                        }
+                    },
+                    error: function () {
+                        displayMessage('An error occurred while saving results.', 'error');
+                    },
+                });
+            }
             function calculateWordCount(words) {
                 const wordArray = words.split(',').filter(word => word.trim() !== '');
                 return wordArray.length;
@@ -572,36 +578,36 @@
 
             // Fetch passage dynamically
             function getPassage(category, totalWord, name, stdId) {
-				const formData = {
-					name: name,
-					stdId: stdId,
-					category: category,
-					total_word: totalWord,
-					_token: $('meta[name="csrf-token"]').attr('content'),
-				};
+                const formData = {
+                    name: name,
+                    stdId: stdId,
+                    category: category,
+                    total_word: totalWord,
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                };
 
-				$.ajax({
-					url: '/get-passage',
-					method: 'POST',
-					data: formData,
-					success: function (response) {
-						if (response.status === true) {
-							$('#textPassage').html(response.data.passage);
-							$('#typeTime').val($('#passage').val());
-							displayMessage('Passage loaded successfully!', 'success');
-							$('#passage_box').show();
-							$('html, body').animate({
-								scrollTop: $('#passage_box').offset().top
-							}, 1000);
-						} else {
-							displayMessage(`Error: ${response.message}`, 'error');
-						}
-					},
-					error: function () {
-						displayMessage('An error occurred. Please try again later.', 'error');
-					},
-				});
-			}
+                $.ajax({
+                    url: '/get-passage',
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.status === true) {
+                            $('#textPassage').html(response.data.passage);
+                            $('#typeTime').val($('#passage').val());
+                            displayMessage('Passage loaded successfully!', 'success');
+                            $('#passage_box').show();
+                            $('html, body').animate({
+                                scrollTop: $('#passage_box').offset().top
+                            }, 1000);
+                        } else {
+                            displayMessage(`Error: ${response.message}`, 'error');
+                        }
+                    },
+                    error: function () {
+                        displayMessage('An error occurred. Please try again later.', 'error');
+                    },
+                });
+            }
 
             // Display response message
             function displayMessage(message, type) {
@@ -612,8 +618,7 @@
             /**
              * Clear all form fields: input, select, textarea, checkbox, radio
              */
-            function clearAllFelids()
-            {
+            function clearAllFelids() {
                 $('input').val('');
 
                 $('select').val('');
@@ -623,8 +628,7 @@
                 $('input[type="checkbox"], input[type="radio"]').prop('checked', false);
             }
 
-            function clearPage()
-            {
+            function clearPage() {
                 location.reload();
             }
         });
