@@ -17,7 +17,6 @@
 
         .logo {
             font-weight: 300;
-            text-transform: uppercase;
             font-size: 2rem;
         }
 

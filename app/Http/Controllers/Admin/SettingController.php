@@ -102,7 +102,7 @@ class SettingController extends Controller
         $setting = Setting::latest()->first();
 
         if($setting){
-            $setting->project_name = Str::title($request->input('project_name'));
+            $setting->project_name = $request->input('project_name');
 
             if($logoName != null):
                 $setting->project_logo = $logoName;
