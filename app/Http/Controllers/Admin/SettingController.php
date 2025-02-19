@@ -49,12 +49,16 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'project_name' => ['required', 'max:250', 'min:2'],
-            'logo'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'favicon'      => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-            'facebook'     => ['nullable', 'url', 'max:255'],
-            'instagram'    => ['nullable', 'url', 'max:255'],
-            'youtube'      => ['nullable', 'url', 'max:255'],
+            'project_name'    => ['required', 'max:250', 'min:2'],
+            'logo'            => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'favicon'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'president_name'  => ['required', 'min:1', 'max:150'],
+            'president_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'trainer_name'    => ['required', 'min:1', 'max:150'],
+            'trainer_image'   => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'facebook'        => ['nullable', 'url', 'max:255'],
+            'instagram'       => ['nullable', 'url', 'max:255'],
+            'youtube'         => ['nullable', 'url', 'max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -79,6 +83,22 @@ class SettingController extends Controller
             $faviconName = null;
         }
 
+        if ($request->hasFile('president_image')) {
+            $presindentFile = $request->file('president_image');
+            $presidentName  = 'president_' . time() . '.' . $presindentFile->getClientOriginalExtension();
+            $presindentFile->move(public_path('uploads'), $presidentName);
+        } else {
+            $presidentName = null;
+        }
+
+        if ($request->hasFile('trainer_image')) {
+            $trainerFile = $request->file('trainer_image');
+            $trainerName = 'trainer_' . time() . '.' . $trainerFile->getClientOriginalExtension();
+            $trainerFile->move(public_path('uploads'), $trainerName);
+        } else {
+            $trainerName = null;
+        }
+
         $setting = Setting::latest()->first();
 
         if($setting){
@@ -91,6 +111,17 @@ class SettingController extends Controller
             if($faviconName != null):
                 $setting->favicon = $faviconName;
             endif;
+
+            if($presidentName != null):
+                $setting->president_image = $presidentName;
+            endif;
+
+            if($trainerName != null):
+                $setting->trainer_image = $trainerName;
+            endif;
+
+            $setting->president_name = Str::title($request->input('president_name'));
+            $setting->trainer_name   = Str::title($request->input('trainer_name'));
 
             $setting->fb_link        = $request->input('facebook');
             $setting->instagram_link = $request->input('instagram');

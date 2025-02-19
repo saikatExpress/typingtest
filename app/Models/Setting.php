@@ -11,6 +11,10 @@ class Setting extends Model
 
     protected $fillable = [
         'project_name',
+        'president_name',
+        'president_image',
+        'trainer_name',
+        'trainer_image',
         'project_logo',
         'favicon',
         'fb_link',
