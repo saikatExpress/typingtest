@@ -16,6 +16,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::controller(UserController::class)->group(function () {
             Route::get('/list', 'index')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update', 'update')->name('update');
         });
