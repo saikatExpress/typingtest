@@ -49,14 +49,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="language_type" class="font-weight-bold text-secondary">Student ID</label>
-                    <input type="text" name="std_id" class="form-control">
-                    @if($errors->has('std_id'))
-                        <span class="text-danger">{{ $errors->first('std_id') }}</span>
-                    @endif
-                </div>
-
-                <div class="form-group">
                     <label for="language_type" class="font-weight-bold text-secondary">Status</label>
                     <select name="status" id="status" class="form-control">
                         <option value="">Select Status</option>
@@ -70,7 +62,7 @@
 
                 <!-- Submit Button -->
                 <div class="text-center">
-                    <button type="submit" class="btn btn-sm btn-primary btn-lg px-5 mt-4 shadow-sm">Create User</button>
+                    <button type="submit" class="btn btn-sm btn-primary btn-lg px-5 mt-4 shadow-sm">Create Teacher</button>
                 </div>
             </form>
 

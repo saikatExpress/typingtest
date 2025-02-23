@@ -12,6 +12,11 @@ class SettingController extends Controller
 {
     public function create()
     {
+        if(auth()->user()->role != 'teacher'){
+            return redirect()->back()->with('failed', 'You are not authorized to access this page');
+
+        }
+
         $setting = Setting::latest()->first();
 
         return view('admin.setting.create', compact('setting'));
@@ -19,6 +24,10 @@ class SettingController extends Controller
 
     public function store(Request $request)
     {
+        if(auth()->user()->role != 'teacher'){
+            return redirect()->back()->with('failed', 'You are not authorized to access this page');
+        }
+
         $validator = Validator::make($request->all(), [
             'visibility' => ['required', 'in:private,public']
         ]);

@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::where('role', 'user')->latest();
+            $data = User::where('role', 'teacher')->latest();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('status', function ($data) {
@@ -57,23 +57,21 @@ class UserController extends Controller
 
             $name     = $request->input('name');
             $email    = $request->input('email');
-            $std_id   = $request->input('std_id');
             $password = $request->input('password');
             $status   = $request->input('status');
 
             $user           = new User();
             $user->name     = $name;
             $user->email    = $email;
-            $user->std_id   = $std_id;
             $user->password = $password;
             $user->status   = $status;
-            $user->role     = 'user';
+            $user->role     = 'teacher';
 
             $res = $user->save();
 
             DB::commit();
             if($res){
-                return redirect()->route('user.list')->with('message', 'User saved successfully');
+                return redirect()->route('user.list')->with('message', 'Teacher saved successfully');
             }
         } catch (\Exception $e) {
             DB::rollback();

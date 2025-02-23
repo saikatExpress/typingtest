@@ -36,10 +36,10 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = Auth::user();
 
-            if ($user->role !== 'admin') {
-                Auth::logout();
-                return redirect()->back()->with('message', 'You are not authorized for this.');
-            }
+            // if ($user->role !== 'admin' || $user->role !== 'teacher') {
+            //     Auth::logout();
+            //     return redirect()->back()->with('message', 'You are not authorized for this.');
+            // }
 
             return redirect()->route('dashboard');
         } else {
