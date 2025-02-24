@@ -73,6 +73,7 @@ class SettingController extends Controller
             'trainer_designation'   => ['required', 'min:1', 'max:150'],
             'president_designation' => ['required', 'min:1', 'max:150'],
             'trainer_image'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'cover_image'           => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
             'facebook'              => ['nullable', 'url', 'max:255'],
             'instagram'             => ['nullable', 'url', 'max:255'],
             'youtube'               => ['nullable', 'url', 'max:255'],
@@ -116,6 +117,14 @@ class SettingController extends Controller
             $trainerName = null;
         }
 
+        if ($request->hasFile('cover_image')) {
+            $coverFile = $request->file('cover_image');
+            $coverName = 'cover_' . time() . '.' . $coverFile->getClientOriginalExtension();
+            $coverFile->move(public_path('uploads'), $coverName);
+        } else {
+            $coverName = null;
+        }
+
         $setting = Setting::latest()->first();
 
         if($setting){
@@ -135,6 +144,10 @@ class SettingController extends Controller
 
             if($trainerName != null):
                 $setting->trainer_image = $trainerName;
+            endif;
+
+            if($coverName != null):
+                $setting->cover_image = $coverName;
             endif;
 
             $setting->president_name        = Str::title($request->input('president_name'));

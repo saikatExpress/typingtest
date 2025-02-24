@@ -120,6 +120,16 @@
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-secondary">Cover Image</label>
+                        <input type="file" name="cover_image" class="form-control dropify"
+                            data-default-file="{{ $setting->cover_image ? asset('uploads/' . $setting->cover_image) : '' }}"
+                            accept="image/*">
+                        @error('cover_image')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Social Media Links -->
                     <div class="mb-4">
                         <h5 class="text-secondary mb-3">Social Media Links</h5>

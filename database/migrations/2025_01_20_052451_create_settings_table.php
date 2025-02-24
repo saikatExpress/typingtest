@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('cover_image', 250)->nullable();
             $table->string('president_designation', 250)->nullable();
             $table->string('trainer_designation', 250)->nullable();
             $table->string('project_name', 250)->nullable();

@@ -38,46 +38,6 @@ return new class extends Migration
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'name'       => 'John Doe',
-                'std_id'     => '565466',
-                'email'      => 'johndoe@gmail.com',
-                'password'   => Hash::make('123456'),
-                'role'       => 'user',
-                'status'     => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name'       => 'Jane Smith',
-                'std_id'     => '676775',
-                'email'      => 'janesmith@gmail.com',
-                'password'   => Hash::make('123456'),
-                'role'       => 'user',
-                'status'     => 'inactive',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name'       => 'Michael Brown',
-                'std_id'     => '67676',
-                'email'      => 'michaelbrown@gmail.com',
-                'password'   => Hash::make('123456'),
-                'role'       => 'user',
-                'status'     => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name'       => 'Sarah Williams',
-                'std_id'     => '676768756',
-                'email'      => 'sarahwilliams@gmail.com',
-                'password'   => Hash::make('123456'),
-                'role'       => 'user',
-                'status'     => 'inactive',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
         ];
 
         User::insert($users);
