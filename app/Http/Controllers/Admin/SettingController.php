@@ -6,15 +6,18 @@ use App\Models\Setting;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
     public function create()
     {
-        if(auth()->user()->role != 'teacher'){
-            return redirect()->back()->with('failed', 'You are not authorized to access this page');
+        $user = Auth::user();
 
+        if (!in_array($user->role, ['admin', 'teacher'])) {
+            Auth::logout();
+            return redirect()->back()->with('message', 'You are not authorized for this.');
         }
 
         $setting = Setting::latest()->first();
@@ -24,8 +27,11 @@ class SettingController extends Controller
 
     public function store(Request $request)
     {
-        if(auth()->user()->role != 'teacher'){
-            return redirect()->back()->with('failed', 'You are not authorized to access this page');
+        $user = Auth::user();
+
+        if (!in_array($user->role, ['admin', 'teacher'])) {
+            Auth::logout();
+            return redirect()->back()->with('message', 'You are not authorized for this.');
         }
 
         $validator = Validator::make($request->all(), [
@@ -58,16 +64,18 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'project_name'    => ['required', 'max:250', 'min:2'],
-            'logo'            => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'favicon'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-            'president_name'  => ['required', 'min:1', 'max:150'],
-            'president_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-            'trainer_name'    => ['required', 'min:1', 'max:150'],
-            'trainer_image'   => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-            'facebook'        => ['nullable', 'url', 'max:255'],
-            'instagram'       => ['nullable', 'url', 'max:255'],
-            'youtube'         => ['nullable', 'url', 'max:255'],
+            'project_name'          => ['required', 'max:250', 'min:2'],
+            'logo'                  => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'favicon'               => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'president_name'        => ['required', 'min:1', 'max:150'],
+            'president_image'       => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'trainer_name'          => ['required', 'min:1', 'max:150'],
+            'trainer_designation'   => ['required', 'min:1', 'max:150'],
+            'president_designation' => ['required', 'min:1', 'max:150'],
+            'trainer_image'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+            'facebook'              => ['nullable', 'url', 'max:255'],
+            'instagram'             => ['nullable', 'url', 'max:255'],
+            'youtube'               => ['nullable', 'url', 'max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -129,8 +137,10 @@ class SettingController extends Controller
                 $setting->trainer_image = $trainerName;
             endif;
 
-            $setting->president_name = Str::title($request->input('president_name'));
-            $setting->trainer_name   = Str::title($request->input('trainer_name'));
+            $setting->president_name        = Str::title($request->input('president_name'));
+            $setting->president_designation = Str::title($request->input('president_designation'));
+            $setting->trainer_name          = Str::title($request->input('trainer_name'));
+            $setting->trainer_designation   = Str::title($request->input('trainer_designation'));
 
             $setting->fb_link        = $request->input('facebook');
             $setting->instagram_link = $request->input('instagram');

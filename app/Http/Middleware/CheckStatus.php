@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckAdmin
+class CheckStatus
 {
     /**
      * Handle an incoming request.
@@ -15,10 +16,11 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')) {
-            return $next($request);
+        if (auth()->check() && auth()->user()->status === 'inactive') {
+            Auth::logout();
+            return redirect()->route('welcome')->with('error', 'Your account is inactive.');
         }
 
-        return redirect()->route('welcome')->with('error', 'You do not have admin access.');
+        return $next($request);
     }
 }

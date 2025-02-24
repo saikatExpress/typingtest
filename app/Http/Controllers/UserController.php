@@ -17,6 +17,11 @@ class UserController extends Controller
             $data = User::where('role', 'teacher')->latest();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('teacher_image', function ($data) {
+                    $imageUrl = asset('uploads/' . $data->teacher_image);
+                    return '<img src="' . $imageUrl . '" alt="Teacher Image" width="100" height="100" class="img-thumbnail">';
+                })
+
                 ->addColumn('status', function ($data) {
                     $activeBtn = '';
                     $inactiveBtn = '';
@@ -38,7 +43,7 @@ class UserController extends Controller
                     return $actionButtons;
                 })
 
-                ->rawColumns(['name', 'std_id', 'email', 'status', 'action'])
+                ->rawColumns(['name', 'teacher_image', 'email', 'status', 'action'])
                 ->make(true);
         }
 
@@ -61,6 +66,19 @@ class UserController extends Controller
             $status   = $request->input('status');
 
             $user           = new User();
+
+            if ($request->hasFile('teacher_image')) {
+                $imageFile = $request->file('teacher_image');
+                $imageName = 'teacher_' . time() . '.' . $imageFile->getClientOriginalExtension();
+                $imageFile->move(public_path('uploads'), $imageName);
+            } else {
+                $imageName = null;
+            }
+
+            if($imageName != null):
+                $user->teacher_image = $imageName;
+            endif;
+
             $user->name     = $name;
             $user->email    = $email;
             $user->password = $password;
@@ -81,13 +99,13 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::where('role', 'user')->where('id',$id)->first();
+        $teacher = User::where('role', 'teacher')->where('id',$id)->first();
 
-        if(!$user){
-            return back()->with('failed', 'User not found');
+        if(!$teacher){
+            return back()->with('failed', 'Teacher not found');
         }
 
-        return view('admin.user.edit', compact('user'));
+        return view('admin.user.edit', compact('teacher'));
     }
 
     /**
@@ -100,10 +118,10 @@ class UserController extends Controller
             DB::beginTransaction();
 
             $validator = Validator::make($request->all(), [
-                'name'   => ['required', 'string', 'min:2'],
-                'email'  => ['required', 'email'],
-                'std_id' => ['required'],
-                'status' => ['required', 'in:active,inactive']
+                'teacher_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
+                'name'          => ['required', 'string', 'min:2'],
+                'email'         => ['required', 'email'],
+                'status'        => ['required', 'in:active,inactive']
             ]);
 
             if ($validator->fails()) {
@@ -120,9 +138,20 @@ class UserController extends Controller
                 return redirect()->route('user.list')->with('message', 'User not found');
             endif;
 
+            if ($request->hasFile('teacher_image')) {
+                $imageFile = $request->file('teacher_image');
+                $imageName = 'teacher_' . time() . '.' . $imageFile->getClientOriginalExtension();
+                $imageFile->move(public_path('uploads'), $imageName);
+            } else {
+                $imageName = null;
+            }
+
+            if($imageName != null):
+                $user->teacher_image = $imageName;
+            endif;
+
             $user->name   = $request->input('name');
             $user->email  = $request->input('email');
-            $user->std_id = $request->input('std_id');
             $user->status = $request->input('status');
 
             $res = $user->save();

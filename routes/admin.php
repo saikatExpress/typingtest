@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin', 'check.status'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/home', 'index')->name('dashboard');
     });

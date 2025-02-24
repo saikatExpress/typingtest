@@ -7,8 +7,8 @@
     <div class="container mt-5">
         <div class="card shadow-lg p-4 rounded">
             <div class="d-flex justify-content-between align-items-center">
-                <h2 class="text-left text-primary mb-4">All User</h2>
-                <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm">Add New User</a>
+                <h2 class="text-left text-primary mb-4">All Teacher</h2>
+                <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm">Add New Teacher</a>
             </div>
 
             @if(session('message'))
@@ -28,7 +28,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Student ID</th>
+                        <th>Image</th>
                         <th>Email</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -71,10 +71,10 @@
 
                         language: {
                             processing: `<div class="text-center">
-                                                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                                        <span class="visually-hidden">Loading...</span>
-                                                    </div>
-                                                        </div>`
+                                                                                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                                                                        <span class="visually-hidden">Loading...</span>
+                                                                                    </div>
+                                                                                        </div>`
                         },
 
                         scroller: {
@@ -100,8 +100,8 @@
                             searchable: false
                         },
                         {
-                            data: 'std_id',
-                            name: 'std_id',
+                            data: 'teacher_image',
+                            name: 'teacher_image',
                             orderable: false,
                             searchable: false
                         },
