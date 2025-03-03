@@ -3,7 +3,7 @@
         $role = auth()->user()->role;
     @endphp
 
-    @if ($role == 'admin')
+    @if ($role === 'admin')
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
@@ -26,6 +26,21 @@
                     <span>All Passage</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('banner.create') }}">
+                    <i class="bi bi-image"></i>
+                    <span>Create Banner</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('banner.list') }}">
+                    <i class="fas fa-image"></i>
+                    <span>All Banner</span>
+                </a>
+            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('user.create') }}">

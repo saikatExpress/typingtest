@@ -7,6 +7,7 @@ use App\Http\Controllers\PassageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\BannerController;
 
 Route::middleware(['auth', 'admin', 'check.status'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
@@ -41,6 +42,18 @@ Route::middleware(['auth', 'admin', 'check.status'])->group(function () {
             Route::delete('/destroy{id}', 'destroy')->name('destroy');
         });
     });
+
+    Route::controller(BannerController::class)->group(function () {
+        Route::prefix('banner')->name('banner.')->group(function () {
+            Route::get('/list', 'index')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update', 'update')->name('update');
+        });
+    });
+
+    Route::delete('/banner/delete/{id}', [BannerController::class, 'destroy'])->name('banner.destroy');
 
     Route::controller(SettingController::class)->group(function () {
         Route::prefix('setting')->name('setting.')->group(function () {
