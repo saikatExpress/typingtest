@@ -274,27 +274,25 @@
                         <!-- Slides -->
                         <div class="carousel-inner">
                             @if (count($banners) > 0)
-                                @foreach ($banners as $banner)
-                                    <div class="carousel-item active">
-                                        <img src="{{ $banner->image_url }}" class="d-block w-100" alt="Slide 1"
+                                @foreach ($banners as $index => $banner)
+                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                        <img src="{{ asset($banner->image_url) }}" class="d-block w-100" alt="Slide {{ $index + 1 }}"
                                             style="height: 400px;">
                                     </div>
                                 @endforeach
                             @else
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100"
-                                        alt="Slide 1">
+                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100" alt="Slide 1">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100"
-                                        alt="Slide 2">
+                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100" alt="Slide 2">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100"
-                                        alt="Slide 3">
+                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100" alt="Slide 3">
                                 </div>
                             @endif
                         </div>
+
 
                         <!-- Controls -->
                         <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel"
