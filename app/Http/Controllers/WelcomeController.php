@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\User;
 use App\Models\Passage;
 use App\Models\Setting;
@@ -25,7 +26,9 @@ class WelcomeController extends Controller
     {
         $setting = Setting::latest()->first();
 
-        return view('dashboard', compact('setting'));
+        $banners = Banner::all();
+
+        return view('dashboard', compact('setting', 'banners'));
     }
 
     public function store(Request $request)

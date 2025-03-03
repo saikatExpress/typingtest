@@ -15,16 +15,22 @@
     <style>
         .navbar {
             background: linear-gradient(90deg, rgb(30, 58, 138), rgb(99, 102, 241));
-            padding: 15px 0;
+
         }
 
         .navbar-brand img {
-            height: 50px;
-            /* Adjust logo size */
+            height: 75px;
+            border-radius: 5px;
         }
 
         .navbar-nav {
             margin: auto;
+        }
+
+        .navbar-brand span {
+            font-weight: 700;
+            color: #ffed4a;
+            font-size: 25px;
         }
 
         .nav-link {
@@ -39,30 +45,69 @@
         }
 
         .social-icons a {
-            color: white;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             font-size: 20px;
-            margin: 0 10px;
-            transition: color 0.3s;
+            text-decoration: none;
+            border: 1px solid white;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            background-color: white;
+        }
+
+        .fa-facebook-f {
+            color: #1877F2;
+        }
+
+        .fa-twitter {
+            color: #1DA1F2;
+        }
+
+        .fa-instagram {
+            color: #E4405F;
         }
 
         .fa-youtube {
-            color: red;
+            color: #FF0000;
         }
 
-        .fa-youtube:hover,
-        .social-icons a:hover {
-            color: #5CA7CE;
+        .social-icons a:nth-child(1):hover {
+            background-color: #1877F2;
         }
 
+        .social-icons a:nth-child(2):hover {
+            background-color: #1DA1F2;
+        }
+
+        .social-icons a:nth-child(3):hover {
+            background-color: #E4405F;
+        }
+
+        .social-icons a:nth-child(4):hover {
+            background-color: #FF0000;
+        }
+
+        .social-icons a:hover i {
+            color: white;
+        }
+
+        /*.fa-youtube {*/
+        /*    color: red;*/
+        /*}*/
+        /*.fa-youtube:hover, .social-icons a:hover {*/
+        /*    color: #5CA7CE;*/
+        /*}*/
         /* Body CSS */
         .card-img-top {
-            width: 150px;
-            height: 150px;
+            width: 100%;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 10px;
             margin: 10px auto;
             display: block;
-            border: 1px solid #fff;
+            border: 4px solid #455;
         }
 
         .bg-color-custom {
@@ -71,6 +116,7 @@
 
         .card {
             transition: box-shadow 0.3s ease-in-out;
+            padding: 0px 10px;
         }
 
         .card:hover {
@@ -113,6 +159,12 @@
                 text-align: center;
             }
         }
+
+        @media (max-width: 461px) {
+            .navbar-brand span {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -121,27 +173,41 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img style="border-radius: 4px;" src="{{ asset('uploads/' . $setting->project_logo) }}"
-                        alt="I2U Computer">
-                </a>
-
+                <!-- Left Logo -->
+                <div class="flex items-center space-x-2">
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('uploads/' . $setting->project_logo) }}" alt="Logo" class="h-10 w-10">
+                        <span class="text-xl font-bold">i2u Computer Education</span>
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <!-- Center Menu -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('welcome') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link"
-                                href="{{ route('typing.type', ['type' => 'regular']) }}">Regular</a></li>
-                        <li class="nav-item"><a class="nav-link"
-                                href="{{ route('typing.type', ['type' => 'exam']) }}">Exam</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('welcome') }}">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('typing.type', ['type' => 'regular']) }}">
+                                Regular
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('typing.type', ['type' => 'exam']) }}">
+                                Exam
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Social Icons (Now inside collapsible menu) -->
                     <div class="social-icons text-center mt-3 d-lg-none">
                         <a href="{{ $setting->fb_link }}"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
                         <a href="{{ $setting->instagram_link }}"><i class="fa-brands fa-instagram"></i></a>
                         <a href="{{ $setting->youtube_link }}"><i class="fa-brands fa-youtube"></i></a>
                     </div>
@@ -150,6 +216,7 @@
                 <!-- Right Social Icons (Visible only on large screens) -->
                 <div class="social-icons d-none d-lg-block">
                     <a href="{{ $setting->fb_link }}"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
                     <a href="{{ $setting->instagram_link }}"><i class="fa-brands fa-instagram"></i></a>
                     <a href="{{ $setting->youtube_link }}"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -159,13 +226,13 @@
 
     <section class="bg-color-custom">
         <div class="container">
-            <div class="row py-5">
-                <div class="col-md-6 home">
+            <div class="row py-4">
+                <div class="col-md-4 home">
                     <h2>Meet Our Leaders</h2>
                     <div class="py-3">
                         <div class="card" style="width: 18rem;">
                             <img src="{{ asset('uploads/' . $setting->president_image) }}" class="card-img-top"
-                                alt="...">
+                                alt="President">
                             <div class="card-body text-center">
                                 <h5 class="card-title">
                                     {{ $setting->president_name }}
@@ -177,7 +244,7 @@
                         </div>
                     </div>
                     <div class="pb-3">
-                        <div class="card text-center shadow-sm" style="width: 18rem;">
+                        <div class="card" style="width: 18rem;">
                             <img src="{{ asset('uploads/' . $setting->trainer_image) }}" class="card-img-top"
                                 alt="Profile Image">
                             <div class="card-body text-center">
@@ -191,11 +258,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 home">
-                    <h2>Start Your Typing Journey!</h2>
-                    <p class="py-3 fs-4">Test your typing speed and accuracy with our interactive typing tools. Whether
-                        you're looking to improve or challenge yourself, we have you covered.</p>
-                    <img src="{{ asset('uploads/' . $setting->cover_image) }}" alt="" style="width: 100%;">
+                <div class="col-md-8 home">
+                    <h2 class="text-center"><span style="color: #ffed4a; font-weight: 700;">i2u</span> Start Your Typing
+                        Journey!</h2>
+                    <!-- Bootstrap Slider -->
+                    <div id="heroCarousel" class="carousel slide pt-3" data-bs-ride="carousel">
+                        <!-- Indicators -->
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0"
+                                class="active"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                        </div>
+
+                        <!-- Slides -->
+                        <div class="carousel-inner">
+                            @if (count($banners) > 0)
+                                @foreach ($banners as $banner)
+                                    <div class="carousel-item active">
+                                        <img src="{{ $banner->image_url }}" class="d-block w-100" alt="Slide 1"
+                                            style="height: 400px;">
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="carousel-item active">
+                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100"
+                                        alt="Slide 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100"
+                                        alt="Slide 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('assets/img/main-big-baner-12.jpg') }}" class="d-block w-100"
+                                        alt="Slide 3">
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -204,12 +314,22 @@
     <!-- Footer Section -->
     <footer class="footer">
         <div class="container">
-            <p class="mb-0 py-2">&copy; 2025 Typing Test. All Rights Reserved. <a
-                    href="{{ route('privacy.policy') }}">Privacy Policy</a></p>
+            <p class="mb-0 py-2">
+                &copy; 2025 Typing Test. All Rights Reserved.
+                <a href="{{ route('privacy.policy') }}">
+                    Privacy Policy
+                </a>
+            </p>
         </div>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var myCarousel = document.querySelector('#heroCarousel');
+        var carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 3000,
+            ride: 'carousel'
+        });
+    </script>
 </body>
 
 </html>
