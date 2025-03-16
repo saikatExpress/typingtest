@@ -206,19 +206,35 @@
 
                     <!-- Right Social Icons (Now inside collapsible menu) -->
                     <div class="social-icons text-center mt-3 d-lg-none">
-                        <a href="{{ $setting->fb_link }}"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="{{ $setting->instagram_link }}"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="{{ $setting->youtube_link }}"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="{{ $setting->fb_link }}" target="_blank">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="{{ $setting->instagram_link }}" target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="{{ $setting->youtube_link }}" target="_blank">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Right Social Icons (Visible only on large screens) -->
                 <div class="social-icons d-none d-lg-block">
-                    <a href="{{ $setting->fb_link }}"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="{{ $setting->instagram_link }}"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="{{ $setting->youtube_link }}"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="{{ $setting->fb_link }}" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" target="_blank">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    <a href="{{ $setting->instagram_link }}" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="{{ $setting->youtube_link }}" target="_blank">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -265,11 +281,12 @@
                     <div id="heroCarousel" class="carousel slide pt-3" data-bs-ride="carousel">
                         <!-- Indicators -->
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0"
-                                class="active"></button>
-                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                            @foreach ($banners as $index => $banner)
+                                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $index }}"
+                                    class="{{ $index == 0 ? 'active' : '' }}"></button>
+                            @endforeach
                         </div>
+
 
                         <!-- Slides -->
                         <div class="carousel-inner">
